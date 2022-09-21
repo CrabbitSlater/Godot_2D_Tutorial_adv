@@ -1,8 +1,10 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Assets/Steve/world_tileset.tres" type="TileSet" id=1]
 [ext_resource path="res://Assets/Steve/Steve.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Assets/Steve/world_tileset_one_way.tres" type="TileSet" id=3]
+[ext_resource path="res://Assets/background/set2_background.png" type="Texture" id=4]
+[ext_resource path="res://Assets/background/set2_tiles.png" type="Texture" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 224, 16 )
@@ -82,3 +84,46 @@ drag_margin_left = 0.1
 drag_margin_right = 0.1
 editor_draw_limits = true
 editor_draw_drag_margin = true
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="Purple_Sky" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_offset = Vector2( -500, -500 )
+motion_mirroring = Vector2( 1280, 960 )
+
+[node name="Purple_Sky_Sprite" type="Sprite" parent="ParallaxBackground/Purple_Sky"]
+scale = Vector2( 2, 2 )
+texture = ExtResource( 4 )
+centered = false
+
+[node name="Far_Blobs" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.1, 0.1 )
+motion_offset = Vector2( -1000, -1000 )
+motion_mirroring = Vector2( 2560, 1920 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/Far_Blobs"]
+modulate = Color( 0.768627, 0.678431, 0.803922, 1 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 5 )
+centered = false
+
+[node name="Middle_Blobs" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.4, 0.4 )
+motion_offset = Vector2( -500, 0 )
+motion_mirroring = Vector2( 1600, 1200 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/Middle_Blobs"]
+modulate = Color( 0.72549, 0.690196, 0.741176, 0.772549 )
+scale = Vector2( 2.5, 2.5 )
+texture = ExtResource( 5 )
+centered = false
+
+[node name="Nearby_Blobs" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.7, 0.7 )
+motion_mirroring = Vector2( 1120, 840 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/Nearby_Blobs"]
+modulate = Color( 1, 1, 1, 0.603922 )
+scale = Vector2( 1.75, 1.75 )
+texture = ExtResource( 5 )
+centered = false
