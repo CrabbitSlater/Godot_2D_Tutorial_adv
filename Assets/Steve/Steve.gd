@@ -3,6 +3,8 @@ extends KinematicBody2D
 var velocity: Vector2  = Vector2(0.0,0.0)
 
 
+
+
 export var gravity : float = 35.0
 export var  top_speed : float = 300
 export var acceleration : float = 1000
@@ -49,11 +51,7 @@ func _physics_process(delta):
 	velocity = move_and_slide(velocity,Vector2.UP)
 	#move and slide returns an adjusted velocity! use this to reset y velocity to zero on floor 
 	
-	#placeholder 'win' condition - dirty (run every frame, just resets scene) but works 
-	if coins == 10:
-		get_tree().change_scene("res://Assets/Levels/Test_Level.tscn")
-	
-	
+
 	
 
 
