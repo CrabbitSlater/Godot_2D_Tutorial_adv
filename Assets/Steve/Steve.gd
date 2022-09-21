@@ -53,9 +53,12 @@ func _physics_process(delta):
 
 func _on_Fall_Zone_body_entered(body):
 	#WARNING_ this is critical you check it is STEVE who is touching the fall zone, otherwise the 
-	tiles will continually trigger a level reload- will be addrssed with collision layers later on 
-	if body.name=="Steve":
-		get_tree().change_scene("res://Assets/Levels/Test_Level.tscn")
+	#tiles will continually trigger a level reload- will be addrssed with collision layers later on 
+	#if body.name=="Steve":
+	
+	#sorted this bug using collisions layers- fall zone now only detects things on player 
+	
+	get_tree().change_scene("res://Assets/Levels/Test_Level.tscn")
 	
 	#pass # Replace with function body.
 
