@@ -8,6 +8,19 @@
 [node name="Steve" parent="." instance=ExtResource( 2 )]
 position = Vector2( 472, 43 )
 
+[node name="Camera2D" type="Camera2D" parent="Steve"]
+current = true
+limit_left = -320
+limit_bottom = 1728
+drag_margin_h_enabled = true
+drag_margin_v_enabled = true
+smoothing_enabled = true
+smoothing_speed = 10.0
+drag_margin_left = 0.1
+drag_margin_right = 0.1
+editor_draw_limits = true
+editor_draw_drag_margin = true
+
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource( 1 )
 format = 1
