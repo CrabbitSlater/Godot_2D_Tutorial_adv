@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Assets/Steve/world_tileset.tres" type="TileSet" id=1]
 [ext_resource path="res://Assets/Steve/Steve.tscn" type="PackedScene" id=2]
@@ -23,6 +23,9 @@ extents = Vector2( 576, 32 )
 
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 288, 16 )
+
+[sub_resource type="RectangleShape2D" id=7]
+extents = Vector2( 2048, 16 )
 
 [node name="Test_Level" type="Node2D"]
 
@@ -127,3 +130,14 @@ modulate = Color( 1, 1, 1, 0.603922 )
 scale = Vector2( 1.75, 1.75 )
 texture = ExtResource( 5 )
 centered = false
+
+[node name="Fall_Zone" type="Area2D" parent="."]
+position = Vector2( 1072, 1744 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Fall_Zone"]
+shape = SubResource( 7 )
+
+[connection signal="body_entered" from="Fall_Zone" to="Steve" method="_on_Fall_Zone_body_entered"]
