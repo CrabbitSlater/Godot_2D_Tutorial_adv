@@ -6,26 +6,41 @@ var velocity: Vector2  = Vector2(0.0,0.0)
 export var gravity : float = 35.0
 export var  top_speed : float = 300
 export var acceleration : float = 1000
-export var friction_lerp_coeff : float = 0.1
-export var jump_force : float = -1100
+export var friction_lerp_coeff : float = 0.2
+export var jump_force : float = -900
+#onready var 
 
 
 func _physics_process(delta):
 	
 	if Input.is_action_pressed("player_right"):
 		velocity.x += acceleration*delta
-
+		$Sprite.play("Walk")
+		#dollar sign allows somone to access child node by name
 	elif Input.is_action_pressed("player_left"):
 		velocity.x -= acceleration*delta
-
+		$Sprite.play("Walk")
 	else:
 		velocity.x = lerp(velocity.x,0,friction_lerp_coeff)
+		$Sprite.play("Idle")
 	
+	#check conditions for animated sprite, i.e. in air and facing 
+	if not self.is_on_floor():
+		$Sprite.play("Air")
+	if velocity.x<0:
+		$Sprite.flip_h = true
+	elif velocity.x>0:
+		$Sprite.flip_h = false
+		
+	
+	
+	#set stop speed for steve
 	velocity.x = clamp(velocity.x,-top_speed,+top_speed)
 	
+	#apply gravity to steve 
 	velocity.y += gravity 
 	
-	print("we are on floor? " + str(is_on_floor()))
+	#check jump action for steve 
 	if Input.is_action_just_pressed("player_jump") and is_on_floor():
 		velocity.y=jump_force
 

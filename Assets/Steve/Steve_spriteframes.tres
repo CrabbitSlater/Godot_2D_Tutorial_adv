@@ -1,0 +1,37 @@
+[gd_resource type="SpriteFrames" load_steps=8 format=2]
+
+[ext_resource path="res://Assets/Steve/Sprites/platformChar_idle.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Steve/Sprites/platformChar_walk1.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Steve/Sprites/platformChar_jump.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Steve/Sprites/platformChar_walk2.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Steve/Sprites/platformChar_climb1.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Steve/Sprites/platformChar_climb2.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Steve/Sprites/platformChar_duck.png" type="Texture" id=7]
+
+[resource]
+animations = [ {
+"frames": [ ExtResource( 3 ) ],
+"loop": true,
+"name": "Air",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 5 ), ExtResource( 6 ) ],
+"loop": true,
+"name": "Climb",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 7 ) ],
+"loop": true,
+"name": "Crouch",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "Idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ), ExtResource( 4 ) ],
+"loop": true,
+"name": "Walk",
+"speed": 5.0
+} ]
