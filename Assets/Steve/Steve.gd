@@ -8,6 +8,8 @@ export var  top_speed : float = 300
 export var acceleration : float = 1000
 export var friction_lerp_coeff : float = 0.2
 export var jump_force : float = -900
+
+var coins : int = 0
 #onready var 
 
 
@@ -47,6 +49,10 @@ func _physics_process(delta):
 	velocity = move_and_slide(velocity,Vector2.UP)
 	#move and slide returns an adjusted velocity! use this to reset y velocity to zero on floor 
 	
+	#placeholder 'win' condition - dirty (run every frame, just resets scene) but works 
+	if coins == 10:
+		get_tree().change_scene("res://Assets/Levels/Test_Level.tscn")
+	
 	
 	
 
@@ -61,4 +67,8 @@ func _on_Fall_Zone_body_entered(body):
 	get_tree().change_scene("res://Assets/Levels/Test_Level.tscn")
 	
 	#pass # Replace with function body.
+	
+func add_coin():
+	coins +=1
+	print("Coins now "+str(coins))
 
