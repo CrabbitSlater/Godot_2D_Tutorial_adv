@@ -10,6 +10,7 @@ export var  top_speed : float = 300
 export var acceleration : float = 1000
 export var friction_lerp_coeff : float = 0.2
 export var jump_force : float = -900
+var stunned : bool = false
 
 var coins : int = 0
 #onready var 
@@ -17,16 +18,19 @@ var coins : int = 0
 
 func _physics_process(delta):
 	
-	if Input.is_action_pressed("player_right"):
+	if Input.is_action_pressed("player_right")and not stunned:
 		velocity.x += acceleration*delta
 		$Sprite.play("Walk")
 		#dollar sign allows somone to access child node by name
-	elif Input.is_action_pressed("player_left"):
+	elif Input.is_action_pressed("player_left") and not stunned:
 		velocity.x -= acceleration*delta
 		$Sprite.play("Walk")
 	else:
-		velocity.x = lerp(velocity.x,0,friction_lerp_coeff)
-		$Sprite.play("Idle")
+		if not stunned:
+			velocity.x = lerp(velocity.x,0,friction_lerp_coeff)
+			if abs(velocity.x) <=1:
+				velocity.x =0
+			$Sprite.play("Idle")
 	
 	#check conditions for animated sprite, i.e. in air and facing 
 	if not self.is_on_floor():
@@ -70,3 +74,30 @@ func add_coin():
 	coins +=1
 	print("Coins now "+str(coins))
 
+func bounce():
+	velocity.y=jump_force*0.5
+	
+func ouch(var enemy_pos_x):
+	self.set_modulate(Color(1,0.3,0.3,0.6))
+	#get relative position of thing that ouched us to ourselves
+	
+	
+	if self.position.x < enemy_pos_x:
+		velocity.x = jump_force*0.3
+		print("enemy hits right of steve")
+		
+	elif self.position.x > enemy_pos_x:
+		velocity.x = -jump_force*0.3
+		print("enemy hits left of steve")
+		
+	velocity.y=jump_force*0.5
+	#temporarily disable player input 
+	Input.action_release("player_left")
+	Input.action_release("player_right")
+	#start timer to reset level
+	stunned=true
+	$Timer.start()	
+
+
+func _on_Timer_timeout():
+	get_tree().change_scene("res://Assets/Levels/Test_Level.tscn")

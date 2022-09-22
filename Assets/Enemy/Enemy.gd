@@ -18,6 +18,9 @@ func _ready():
 		#note also that etents is distane from origin to the edge of the shape- not the full width
 		#note- raycasting is expensive- try to minimise use of them  
 		$FloorChecker.enabled = detects_cliffs
+		
+	if detects_cliffs:
+		set_modulate(Color(1.2,0.5,1))
 	
 func _physics_process(delta):
 	
@@ -38,3 +41,36 @@ func _physics_process(delta):
 	
 	#dont forget to add the UP variable 
 	velocity = self.move_and_slide(velocity,Vector2.UP)
+
+#WARNING: a area2d will detect another area2D if it's on the same layer EVEN IF the masks are set 
+#up to ignore!  This led to an unfortunate 'self squish' bug where slimes would spawn squished as 
+#their own detector areas would trigger the onbodtentered result
+
+func _on_TopChecker_body_entered(body):
+	#start timer for enemy cleanup
+	$Timer.start()
+	$AnimatedSprite.play("Squash")
+	self.speed=0
+	#disable collisions by remiving self from layer and maslk
+	self.set_collision_layer_bit(4, false)
+	self.set_collision_mask_bit(0,false)
+	$TopChecker.set_collision_mask_bit(0,false)
+	$TopChecker.set_collision_layer_bit(4,false)
+	$SidesChecker.set_collision_mask_bit(0,false)
+	$SidesChecker.set_collision_layer_bit(4,false)
+	
+	#check that this is a steve that splatted us
+	if body.name=="Steve":
+		body.bounce()
+	
+
+
+func _on_SidesChecker_body_entered(body):
+	
+	if body.name == "Steve":
+		body.ouch(self.position.x)
+	
+
+func _on_Timer_timeout():
+	#Cleanup dead enemy
+	queue_free()

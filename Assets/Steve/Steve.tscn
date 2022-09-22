@@ -8,6 +8,7 @@ radius = 26.0
 height = 14.0
 
 [node name="Steve" type="KinematicBody2D"]
+z_index = 1
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_group_": true
@@ -21,3 +22,8 @@ playing = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 15 )
 shape = SubResource( 1 )
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
