@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://Assets/Steve/world_tileset.tres" type="TileSet" id=1]
 [ext_resource path="res://Assets/Steve/Steve.tscn" type="PackedScene" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://Assets/UI/UI_Img/coin_gold.png" type="Texture" id=7]
 [ext_resource path="res://Assets/UI/Fonts/BalsamiqSans-Bold.ttf" type="DynamicFontData" id=8]
 [ext_resource path="res://Assets/Levels/HUD.gd" type="Script" id=9]
+[ext_resource path="res://Assets/Enemy/Enemy.tscn" type="PackedScene" id=10]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 224, 16 )
@@ -59,6 +60,8 @@ format = 1
 tile_data = PoolIntArray( 65541, 1, 0, 65542, 2, 0, 65543, 2, 0, 65544, 2, 0, 65545, 3, 0, 131077, 0, 0, 131078, 0, 0, 131079, 0, 0, 131080, 0, 0, 131081, 0, 0, 196612, 1, 0, 196613, 2, 0, 196614, 2, 0, 196615, 2, 0, 196616, 2, 0, 196617, 2, 0, 196618, 3, 0, 262148, 0, 0, 262149, 0, 0, 262150, 0, 0, 262151, 0, 0, 262152, 0, 0, 262153, 0, 0, 262154, 0, 0, 262158, 5, 0, 262159, 2, 0, 262160, 2, 0, 262161, 2, 0, 262162, 2, 0, 262163, 4, 0, 327683, 1, 0, 327684, 2, 0, 327685, 2, 0, 327686, 2, 0, 327687, 2, 0, 327688, 2, 0, 327689, 2, 0, 327690, 2, 0, 327691, 3, 0, 393219, 0, 0, 393220, 0, 0, 393221, 0, 0, 393222, 0, 0, 393223, 0, 0, 393224, 0, 0, 393225, 0, 0, 393226, 0, 0, 393227, 0, 0, 1048573, 5, 0, 1048574, 2, 0, 1048575, 2, 0, 983040, 2, 0, 983041, 2, 0, 983042, 2, 0, 983043, 2, 0, 983044, 2, 0, 983045, 2, 0, 983046, 2, 0, 983047, 2, 0, 983048, 2, 0, 983049, 2, 0, 983050, 2, 0, 983051, 2, 0, 983052, 2, 0, 983053, 2, 0, 983054, 4, 0, 1048591, 5, 0, 1048592, 2, 0, 1048593, 2, 0, 1048594, 2, 0, 1048595, 2, 0, 1048596, 2, 0, 1048597, 2, 0, 1048598, 4, 0 )
 
 [node name="One_way_collision_container" type="StaticBody2D" parent="Tiles_One_Way"]
+collision_layer = 2
+collision_mask = 49
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Tiles_One_Way/One_way_collision_container"]
 position = Vector2( 480, 208 )
@@ -259,6 +262,15 @@ custom_colors/font_outline_modulate = Color( 0.647059, 0.560784, 0, 1 )
 custom_fonts/font = SubResource( 10 )
 text = "$$"
 valign = 1
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="Enemy" parent="Enemies" instance=ExtResource( 10 )]
+position = Vector2( 692, 176 )
+
+[node name="Enemy2" parent="Enemies" instance=ExtResource( 10 )]
+position = Vector2( 432, 48 )
+direction = 1
 
 [connection signal="body_entered" from="Fall_Zone" to="Steve" method="_on_Fall_Zone_body_entered"]
 [connection signal="coin_collected" from="Coin_Container/Coin" to="HUD" method="_on_coin_collected"]
