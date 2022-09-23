@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://GotoTitleButton.gd" type="Script" id=1]
+
+[node name="GameOverScreen" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_right = 1040.0
+margin_bottom = 608.0
+color = Color( 0.560784, 0, 0, 1 )
+
+[node name="GotoTitleButton" type="Button" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 480.0
+margin_top = 352.0
+margin_right = -464.0
+margin_bottom = -168.0
+text = "Main MEnu"
+script = ExtResource( 1 )
+
+[connection signal="pressed" from="GotoTitleButton" to="GotoTitleButton" method="_on_GotoTitleButton_pressed"]

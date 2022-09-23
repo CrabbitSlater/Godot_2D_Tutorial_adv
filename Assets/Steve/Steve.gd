@@ -66,7 +66,7 @@ func _on_Fall_Zone_body_entered(body):
 	
 	#sorted this bug using collisions layers- fall zone now only detects things on player 
 	
-	get_tree().change_scene("res://Assets/Levels/Test_Level.tscn")
+	get_tree().change_scene("res://Assets/GameOverScreen.tscn")
 	
 	#pass # Replace with function body.
 	
@@ -100,4 +100,4 @@ func ouch(var enemy_pos_x):
 
 
 func _on_Timer_timeout():
-	get_tree().change_scene("res://Assets/Levels/Test_Level.tscn")
+	get_tree().change_scene("res://Assets/GameOverScreen.tscn")
