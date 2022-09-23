@@ -17,6 +17,7 @@ func _on_Coin_body_entered(body):
 	#WARNING- for best practice, shoud check that this method exists on other 
 	#ßentity- or check gorup or class
 	emit_signal("coin_collected")
+	$SoundCoinCollect.play()
 	
 	
 

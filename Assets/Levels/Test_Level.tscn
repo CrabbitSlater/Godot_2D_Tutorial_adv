@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Assets/Steve/world_tileset.tres" type="TileSet" id=1]
 [ext_resource path="res://Assets/Steve/Steve.tscn" type="PackedScene" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://Assets/UI/Fonts/BalsamiqSans-Bold.ttf" type="DynamicFontData" id=8]
 [ext_resource path="res://Assets/Levels/HUD.gd" type="Script" id=9]
 [ext_resource path="res://Assets/Enemy/Enemy.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Assets/Audio/music/Retro Beat.ogg" type="AudioStream" id=11]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 224, 16 )
@@ -275,6 +276,11 @@ direction = 1
 [node name="Enemy3" parent="Enemies" instance=ExtResource( 10 )]
 position = Vector2( 784, 302 )
 detects_cliffs = false
+
+[node name="MusicLevel" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 11 )
+volume_db = -12.0
+autoplay = true
 
 [connection signal="body_entered" from="Fall_Zone" to="Steve" method="_on_Fall_Zone_body_entered"]
 [connection signal="coin_collected" from="Coin_Container/Coin" to="HUD" method="_on_coin_collected"]

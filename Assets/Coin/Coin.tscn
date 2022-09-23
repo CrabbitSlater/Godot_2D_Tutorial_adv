@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Assets/Coin/Coin_Spin_Anim_Frame.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://Assets/Coin/Coin.gd" type="Script" id=2]
+[ext_resource path="res://Assets/Audio/sounds/powerUp2.ogg" type="AudioStream" id=3]
 
 [sub_resource type="Animation" id=2]
 resource_name = "Bounce"
@@ -53,7 +54,12 @@ shape = SubResource( 1 )
 scale = Vector2( 0.5, 0.5 )
 frames = ExtResource( 1 )
 animation = "New Anim 1"
+frame = 2
 playing = true
+
+[node name="SoundCoinCollect" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+volume_db = -5.0
 
 [connection signal="body_entered" from="." to="." method="_on_Coin_body_entered"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

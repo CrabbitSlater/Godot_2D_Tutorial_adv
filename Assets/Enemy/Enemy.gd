@@ -50,6 +50,7 @@ func _on_TopChecker_body_entered(body):
 	#start timer for enemy cleanup
 	$Timer.start()
 	$AnimatedSprite.play("Squash")
+	$SoundSquash.play()
 	self.speed=0
 	#disable collisions by remiving self from layer and maslk
 	self.set_collision_layer_bit(4, false)

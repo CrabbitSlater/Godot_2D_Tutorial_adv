@@ -1,9 +1,13 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Assets/UI/UI_Img/grey_button04.png" type="Texture" id=1]
 [ext_resource path="res://Assets/UI/Fonts/KiriFont.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://Assets/PlayButton.gd" type="Script" id=3]
 [ext_resource path="res://Assets/UI/UI_Img/arrow-UP.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Audio/music/Swinging Pants.ogg" type="AudioStream" id=5]
+[ext_resource path="res://Assets/UI/UI_Img/coin_gold.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Enemy/Sprites/slimeBlue_blue.png" type="Texture" id=7]
+[ext_resource path="res://Assets/UI/Fonts/BalsamiqSans-Bold.ttf" type="DynamicFontData" id=8]
 
 [sub_resource type="DynamicFont" id=1]
 size = 55
@@ -18,8 +22,19 @@ corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 
+[sub_resource type="DynamicFont" id=4]
+size = 20
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 32
+font_data = ExtResource( 8 )
+
 [sub_resource type="DynamicFont" id=3]
 size = 80
+outline_size = 3
+outline_color = Color( 0.721569, 0.654902, 0.913725, 1 )
 font_data = ExtResource( 2 )
 
 [node name="TitleMenu" type="Control"]
@@ -61,6 +76,15 @@ margin_right = 224.0
 margin_bottom = 64.0
 texture = ExtResource( 1 )
 expand = true
+
+[node name="Label2" type="Label" parent="PanelControls/Spacebar"]
+margin_right = 112.0
+margin_bottom = 32.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 4 )
+text = "SPACE"
+align = 1
+valign = 1
 
 [node name="LeftKey" type="TextureRect" parent="PanelControls"]
 margin_left = 128.0
@@ -105,47 +129,61 @@ margin_right = 960.0
 margin_bottom = -40.2
 custom_styles/panel = SubResource( 2 )
 
-[node name="Spacebar" type="TextureRect" parent="PanelEnemies"]
-margin_left = 112.0
+[node name="CoinImg" type="TextureRect" parent="PanelEnemies"]
+margin_left = 160.0
+margin_top = 16.0
+margin_right = 200.0
+margin_bottom = 56.0
+texture = ExtResource( 6 )
+expand = true
+
+[node name="EnemyImg" type="TextureRect" parent="PanelEnemies"]
+margin_left = 160.0
+margin_top = 84.0
+margin_right = 200.0
+margin_bottom = 114.0
+texture = ExtResource( 7 )
+expand = true
+
+[node name="Label" type="Label" parent="PanelEnemies"]
+margin_left = 32.0
+margin_top = 16.0
+margin_right = 93.0
+margin_bottom = 55.0
+custom_fonts/font = SubResource( 5 )
+text = "Get!"
+align = 1
+valign = 1
+
+[node name="Label3" type="Label" parent="PanelEnemies"]
+margin_left = -640.0
 margin_top = 32.0
-margin_right = 224.0
-margin_bottom = 64.0
-texture = ExtResource( 1 )
-expand = true
+margin_right = -579.0
+margin_bottom = 71.0
+custom_fonts/font = SubResource( 5 )
+text = "Jump!"
+align = 1
+valign = 1
 
-[node name="LeftKey" type="TextureRect" parent="PanelEnemies"]
-margin_left = 128.0
+[node name="Label4" type="Label" parent="PanelEnemies"]
+margin_left = -640.0
 margin_top = 80.0
-margin_right = 160.0
-margin_bottom = 112.0
-texture = ExtResource( 1 )
-expand = true
+margin_right = -552.0
+margin_bottom = 119.0
+custom_fonts/font = SubResource( 5 )
+text = "Move!"
+align = 1
+valign = 1
 
-[node name="TextureRect2" type="TextureRect" parent="PanelEnemies/LeftKey"]
-margin_left = 8.0
-margin_top = 24.0
-margin_right = 24.0
-margin_bottom = 40.0
-rect_rotation = -90.0
-texture = ExtResource( 4 )
-expand = true
-
-[node name="RightKey" type="TextureRect" parent="PanelEnemies"]
-margin_left = 176.0
+[node name="Label2" type="Label" parent="PanelEnemies"]
+margin_left = 32.0
 margin_top = 80.0
-margin_right = 208.0
-margin_bottom = 112.0
-texture = ExtResource( 1 )
-expand = true
-
-[node name="TextureRect" type="TextureRect" parent="PanelEnemies/RightKey"]
-margin_left = 24.0
-margin_top = 8.0
-margin_right = 40.0
-margin_bottom = 24.0
-rect_rotation = 90.0
-texture = ExtResource( 4 )
-expand = true
+margin_right = 93.0
+margin_bottom = 119.0
+custom_fonts/font = SubResource( 5 )
+text = "Squish!"
+align = 1
+valign = 1
 
 [node name="PlayButton" type="Button" parent="."]
 margin_left = 352.0
@@ -159,5 +197,10 @@ custom_fonts/font = SubResource( 3 )
 text = "Play"
 flat = true
 script = ExtResource( 3 )
+
+[node name="MusicTitleScreen" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+volume_db = -10.0
+autoplay = true
 
 [connection signal="pressed" from="PlayButton" to="PlayButton" method="_on_PlayButton_pressed"]

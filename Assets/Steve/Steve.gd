@@ -51,6 +51,7 @@ func _physics_process(delta):
 	#check jump action for steve 
 	if Input.is_action_just_pressed("player_jump") and is_on_floor():
 		velocity.y=jump_force
+		$SoundJump.play()
 
 	velocity = move_and_slide(velocity,Vector2.UP)
 	#move and slide returns an adjusted velocity! use this to reset y velocity to zero on floor 
