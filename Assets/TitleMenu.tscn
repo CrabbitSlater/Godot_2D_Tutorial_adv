@@ -44,7 +44,7 @@ anchor_bottom = 1.0
 [node name="ColorRect" type="ColorRect" parent="."]
 margin_right = 1024.0
 margin_bottom = 600.0
-color = Color( 0.223529, 0.121569, 0.341176, 1 )
+color = Color( 0.290196, 0.25098, 0.341176, 1 )
 
 [node name="Label" type="Label" parent="."]
 anchor_left = 0.5
