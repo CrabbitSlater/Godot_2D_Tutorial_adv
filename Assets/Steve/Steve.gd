@@ -1,16 +1,21 @@
 extends KinematicBody2D
 
+#use an enum to enumerate states for finite state machine
+enum States {AIR=1, FLOOR, LADDER, WALL} #states enumerated at air =1 first, then floor = 2 etc
+
+var state = States.AIR
+
+
+
 var velocity: Vector2  = Vector2(0.0,0.0)
-
-
-
-
 export var gravity : float = 35.0
 export var  top_speed : float = 300
+export var top_run_speed : float = 450
+export var top_air_speed : float = 400
 export var acceleration : float = 1000
+export var run_acceleration : float = 1500
 export var friction_lerp_coeff : float = 0.2
 export var jump_force : float = -900
-var stunned : bool = false
 
 var coins : int = 0
 #onready var 
@@ -18,46 +23,77 @@ var coins : int = 0
 
 func _physics_process(delta):
 	
-	if Input.is_action_pressed("player_right")and not stunned:
-		velocity.x += acceleration*delta
-		$Sprite.play("Walk")
-		#dollar sign allows somone to access child node by name
-	elif Input.is_action_pressed("player_left") and not stunned:
-		velocity.x -= acceleration*delta
-		$Sprite.play("Walk")
-	else:
-		if not stunned:
-			velocity.x = lerp(velocity.x,0,friction_lerp_coeff)
-			if abs(velocity.x) <=1:
-				velocity.x =0
-			$Sprite.play("Idle")
+	#match statement is like a switch case  i.e. see if self.state 
+	#is equal to any of the following states in the enum
+	match self.state: 
+		States.AIR:
+			if is_on_floor():
+				self.state = States.FLOOR
+				continue #skips rest of code in this match case 
+			$Sprite.play("Air")
+			if Input.is_action_pressed("player_right"):
+				velocity.x += acceleration*delta
+				$Sprite.flip_h = false
+			elif Input.is_action_pressed("player_left"):
+				velocity.x -= acceleration*delta
+				$Sprite.flip_h = true
+			else:
+				velocity.x = lerp(velocity.x,0,friction_lerp_coeff)
+			velocity.x = clamp(velocity.x,-top_air_speed,+top_air_speed)
+			move_and_fall()
+			
+		States.FLOOR:
+			
+			if not is_on_floor():
+				self.state=States.AIR
+				continue
+			
+			if Input.is_action_pressed("player_right"):
+				if Input.is_action_pressed("player_run"):
+					$Sprite.set_speed_scale(3.0)
+					velocity.x += run_acceleration*delta
+					velocity.x = clamp(velocity.x,-top_run_speed,+top_run_speed)
+				else:
+					$Sprite.set_speed_scale(1.0)
+					velocity.x += acceleration*delta
+					velocity.x = clamp(velocity.x,-top_speed,+top_speed)
+				$Sprite.flip_h = false
+				$Sprite.play("Walk")
+				#dollar sign allows somone to access child node by name
+			elif Input.is_action_pressed("player_left"):
+				if Input.is_action_pressed("player_run"):
+					$Sprite.set_speed_scale(3.0)
+					velocity.x -= run_acceleration*delta
+					velocity.x = clamp(velocity.x,-top_run_speed,+top_run_speed)
+				else:
+					$Sprite.set_speed_scale(1.0)
+					velocity.x -= acceleration*delta
+					velocity.x = clamp(velocity.x,-top_speed,+top_speed)
+				$Sprite.flip_h = true
+				$Sprite.play("Walk")
+			else:
+				velocity.x = lerp(velocity.x,0,friction_lerp_coeff)
+				if abs(velocity.x) <=1:
+					velocity.x =0
+				$Sprite.play("Idle")
+			
+				#check jump action for steve 
+			if Input.is_action_just_pressed("player_jump"):
+				velocity.y=jump_force
+				$SoundJump.play()
+				self.state=States.AIR
+			move_and_fall()
 	
-	#check conditions for animated sprite, i.e. in air and facing 
-	if not self.is_on_floor():
-		$Sprite.play("Air")
-	if velocity.x<0:
-		$Sprite.flip_h = true
-	elif velocity.x>0:
-		$Sprite.flip_h = false
-		
-	
-	
-	#set stop speed for steve
-	velocity.x = clamp(velocity.x,-top_speed,+top_speed)
-	
-	#apply gravity to steve 
-	velocity.y += gravity 
-	
-	#check jump action for steve 
-	if Input.is_action_just_pressed("player_jump") and is_on_floor():
-		velocity.y=jump_force
-		$SoundJump.play()
 
+
+	
+
+	
+
+func move_and_fall():
+	velocity.y += gravity 
 	velocity = move_and_slide(velocity,Vector2.UP)
 	#move and slide returns an adjusted velocity! use this to reset y velocity to zero on floor 
-	
-
-	
 
 
 func _on_Fall_Zone_body_entered(body):
@@ -96,7 +132,6 @@ func ouch(var enemy_pos_x):
 	Input.action_release("player_left")
 	Input.action_release("player_right")
 	#start timer to reset level
-	stunned=true
 	$Timer.start()	
 
 
