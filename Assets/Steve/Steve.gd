@@ -18,6 +18,9 @@ export var acceleration : float = 1000
 export var run_acceleration : float = 1500
 export var friction_lerp_coeff : float = 0.2
 export var jump_force : float = -900
+export var wall_kick_force :float = 450
+var direction : int = 1
+var last_jump_direction :int =0
 
 var coins : int = 0
 #onready var 
@@ -25,13 +28,19 @@ var coins : int = 0
 
 func _physics_process(delta):
 	
+	print(is_near_wall())
 	#match statement is like a switch case  i.e. see if self.state 
 	#is equal to any of the following states in the enum
 	match self.state: 
 		States.AIR:
 			if is_on_floor():
 				self.state = States.FLOOR
+				last_jump_direction=0
 				continue #skips rest of code in this match case 
+			elif is_near_wall():
+				state=States.WALL
+				continue
+				
 			$Sprite.play("Air")
 			if Input.is_action_pressed("player_right"):
 				velocity.x += acceleration*delta
@@ -42,7 +51,8 @@ func _physics_process(delta):
 			else:
 				velocity.x = lerp(velocity.x,0,friction_lerp_coeff)
 			velocity.x = clamp(velocity.x,-top_air_speed,+top_air_speed)
-			move_and_fall()
+			set_direction()
+			move_and_fall(false)
 			fire()
 			
 		States.FLOOR:
@@ -50,6 +60,8 @@ func _physics_process(delta):
 			if not is_on_floor():
 				self.state=States.AIR
 				continue
+			
+			
 			
 			if Input.is_action_pressed("player_right"):
 				if Input.is_action_pressed("player_run"):
@@ -85,13 +97,42 @@ func _physics_process(delta):
 				velocity.y=jump_force
 				$SoundJump.play()
 				self.state=States.AIR
-			move_and_fall()
+			set_direction()
+			move_and_fall(false)
 			fire()
+			
+		States.WALL:
+			
+			if is_on_floor():
+				state = States.FLOOR
+				last_jump_direction=0
+				continue
+			elif not is_near_wall():
+				state = States.AIR
+				continue
+			
+			$Sprite.play("Wall")
+			
+			if  (last_jump_direction != direction) and Input.is_action_pressed("player_jump") and ((Input.is_action_pressed("player_left") and direction==1) or (Input.is_action_pressed("player_right") and direction==-1)):
+				last_jump_direction=direction
+				velocity.x = wall_kick_force* -direction
+				velocity.y= jump_force *0.7
+				$SoundJump.play()
+				state = States.AIR
+			
+			
+			move_and_fall(true)
 	
+func set_direction():
+	
+	direction = 1 if not $Sprite.flip_h else -1
+	$WallChecker.rotation_degrees = 90 * -direction
+	
+func is_near_wall():
+	return $WallChecker.is_colliding()
 
 func fire():
-	if Input.is_action_just_pressed("player_fire"):
-		var direction = 1 if not $Sprite.flip_h else -1
+	if Input.is_action_just_pressed("player_fire") and not is_near_wall():
 		var f = FIREBALL.instance() 
 		#^create an instance of fireball in memory but NOT added to scene
 		f.direction = direction
@@ -102,8 +143,12 @@ func fire():
 		f.position.x = self.position.x +25*direction
 		#^offset x position of fireball 
 
-func move_and_fall():
+func move_and_fall(slow_fall : bool):
 	velocity.y += gravity 
+	
+	if slow_fall:
+		velocity.y = clamp(velocity.y,jump_force,200)
+	
 	velocity = move_and_slide(velocity,Vector2.UP)
 	#move and slide returns an adjusted velocity! use this to reset y velocity to zero on floor 
 
