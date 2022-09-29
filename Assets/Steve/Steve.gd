@@ -6,6 +6,8 @@ enum States {AIR=1, FLOOR, LADDER, WALL} #states enumerated at air =1 first, the
 var state = States.AIR
 
 
+#fireball is const and also preloaded to minimise memory strain 
+const FIREBALL = preload("res://Assets/Fireball/Fireball.tscn")
 
 var velocity: Vector2  = Vector2(0.0,0.0)
 export var gravity : float = 35.0
@@ -41,6 +43,7 @@ func _physics_process(delta):
 				velocity.x = lerp(velocity.x,0,friction_lerp_coeff)
 			velocity.x = clamp(velocity.x,-top_air_speed,+top_air_speed)
 			move_and_fall()
+			fire()
 			
 		States.FLOOR:
 			
@@ -83,12 +86,21 @@ func _physics_process(delta):
 				$SoundJump.play()
 				self.state=States.AIR
 			move_and_fall()
+			fire()
 	
 
-
-	
-
-	
+func fire():
+	if Input.is_action_just_pressed("player_fire"):
+		var direction = 1 if not $Sprite.flip_h else -1
+		var f = FIREBALL.instance() 
+		#^create an instance of fireball in memory but NOT added to scene
+		f.direction = direction
+		#^ assign direction of the fireball BEFORE adding to scene (overrides default)
+		get_parent().add_child(f)
+		#add instance fireball to parent of steve (the scene) 
+		f.position.y = self.position.y
+		f.position.x = self.position.x +25*direction
+		#^offset x position of fireball 
 
 func move_and_fall():
 	velocity.y += gravity 

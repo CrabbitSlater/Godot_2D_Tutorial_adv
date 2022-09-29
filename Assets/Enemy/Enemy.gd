@@ -68,8 +68,13 @@ func _on_TopChecker_body_entered(body):
 
 func _on_SidesChecker_body_entered(body):
 	
-	if body.name == "Steve":
+	if body.get_collision_layer()==1:
 		body.ouch(self.position.x)
+	
+	elif body.get_collision_layer()== 32:
+		body.queue_free()
+		self.queue_free()
+		
 	
 
 func _on_Timer_timeout():
