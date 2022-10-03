@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Assets/Steve/world_tileset.tres" type="TileSet" id=1]
 [ext_resource path="res://Assets/Steve/Steve.tscn" type="PackedScene" id=2]
@@ -13,24 +13,7 @@
 [ext_resource path="res://Assets/Audio/music/Retro Beat.ogg" type="AudioStream" id=11]
 [ext_resource path="res://Assets/Objects/Ladder/ladder_sprites/ladder_top.png" type="Texture" id=12]
 [ext_resource path="res://Assets/Objects/Ladder/ladder_sprites/ladder_mid.png" type="Texture" id=13]
-
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 224, 16 )
-
-[sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 160, 16 )
-
-[sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 192, 16 )
-
-[sub_resource type="RectangleShape2D" id=5]
-extents = Vector2( 254.5, 16 )
-
-[sub_resource type="RectangleShape2D" id=6]
-extents = Vector2( 576, 32 )
-
-[sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 288, 16 )
+[ext_resource path="res://Assets/Objects/Ladder/Ladder_Top.tscn" type="PackedScene" id=14]
 
 [sub_resource type="ConvexPolygonShape2D" id=11]
 points = PoolVector2Array( 48, 64, 16, 64, 16, 0, 48, 0 )
@@ -148,47 +131,14 @@ scale = Vector2( 1.75, 1.75 )
 texture = ExtResource( 5 )
 centered = false
 
-[node name="Tiles_One_Way" type="TileMap" parent="."]
+[node name="Tiles_One_Way" type="TileMap" parent="." groups=["one_way"]]
 position = Vector2( 64, 0 )
 tile_set = ExtResource( 3 )
+show_collision = true
 collision_layer = 2
 collision_mask = 49
 format = 1
-tile_data = PoolIntArray( 65541, 1, 0, 65542, 2, 0, 65543, 2, 0, 65544, 2, 0, 65545, 3, 0, 131077, 0, 0, 131078, 0, 0, 131079, 0, 0, 131080, 0, 0, 131081, 0, 0, 196612, 1, 0, 196613, 2, 0, 196614, 2, 0, 196615, 2, 0, 196616, 2, 0, 196617, 2, 0, 196618, 3, 0, 262148, 0, 0, 262149, 0, 0, 262150, 0, 0, 262151, 0, 0, 262152, 0, 0, 262153, 0, 0, 262154, 0, 0, 262158, 5, 0, 262159, 2, 0, 262160, 2, 0, 262161, 2, 0, 262162, 2, 0, 262163, 4, 0, 327683, 1, 0, 327684, 2, 0, 327685, 2, 0, 327686, 2, 0, 327687, 2, 0, 327688, 2, 0, 327689, 2, 0, 327690, 2, 0, 327691, 3, 0, 393219, 0, 0, 393220, 0, 0, 393221, 0, 0, 393222, 0, 0, 393223, 0, 0, 393224, 0, 0, 393225, 0, 0, 393226, 0, 0, 393227, 0, 0, 1048573, 5, 0, 1048574, 2, 0, 1048575, 2, 0, 983040, 2, 0, 983041, 2, 0, 983042, 2, 0, 983043, 2, 0, 983044, 2, 0, 983045, 2, 0, 983046, 2, 0, 983047, 2, 0, 983048, 2, 0, 983049, 2, 0, 983050, 2, 0, 983051, 2, 0, 983052, 2, 0, 983053, 2, 0, 983054, 4, 0, 1048591, 5, 0, 1048592, 2, 0, 1048593, 2, 0, 1048594, 2, 0, 1048595, 2, 0, 1048596, 2, 0, 1048597, 2, 0, 1048598, 4, 0 )
-
-[node name="One_way_collision_container" type="StaticBody2D" parent="Tiles_One_Way"]
-collision_layer = 2
-collision_mask = 49
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Tiles_One_Way/One_way_collision_container"]
-position = Vector2( 480, 208 )
-shape = SubResource( 1 )
-one_way_collision = true
-
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="Tiles_One_Way/One_way_collision_container"]
-position = Vector2( 480, 80 )
-shape = SubResource( 2 )
-one_way_collision = true
-
-[node name="CollisionShape2D4" type="CollisionShape2D" parent="Tiles_One_Way/One_way_collision_container"]
-position = Vector2( 1088, 272 )
-shape = SubResource( 4 )
-one_way_collision = true
-
-[node name="CollisionShape2D5" type="CollisionShape2D" parent="Tiles_One_Way/One_way_collision_container"]
-position = Vector2( 1214.5, 1040 )
-shape = SubResource( 5 )
-one_way_collision = true
-
-[node name="CollisionShape2D6" type="CollisionShape2D" parent="Tiles_One_Way/One_way_collision_container"]
-position = Vector2( 384, 992 )
-shape = SubResource( 6 )
-one_way_collision = true
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Tiles_One_Way/One_way_collision_container"]
-position = Vector2( 480, 336 )
-shape = SubResource( 3 )
-one_way_collision = true
+tile_data = PoolIntArray( 65541, 1, 0, 65542, 2, 0, 65543, 2, 0, 65544, 2, 0, 65545, 3, 0, 131077, 0, 0, 131078, 0, 0, 131079, 0, 0, 131080, 0, 0, 131081, 0, 0, 196612, 1, 0, 196613, 2, 0, 196614, 2, 0, 196615, 2, 0, 196616, 2, 0, 196617, 2, 0, 196618, 3, 0, 262148, 0, 0, 262149, 0, 0, 262150, 0, 0, 262151, 0, 0, 262152, 0, 0, 262153, 0, 0, 262154, 0, 0, 262158, 5, 0, 262159, 2, 0, 262160, 2, 0, 262161, 6, 0, 262162, 2, 0, 262163, 4, 0, 327683, 1, 0, 327684, 2, 0, 327685, 2, 0, 327686, 2, 0, 327687, 2, 0, 327688, 2, 0, 327689, 2, 0, 327690, 2, 0, 327691, 3, 0, 393219, 0, 0, 393220, 0, 0, 393221, 0, 0, 393222, 0, 0, 393223, 0, 0, 393224, 0, 0, 393225, 0, 0, 393226, 0, 0, 393227, 0, 0, 1048573, 5, 0, 1048574, 2, 0, 1048575, 2, 0, 983040, 2, 0, 983041, 2, 0, 983042, 2, 0, 983043, 2, 0, 983044, 2, 0, 983045, 2, 0, 983046, 2, 0, 983047, 2, 0, 983048, 2, 0, 983049, 2, 0, 983050, 2, 0, 983051, 2, 0, 983052, 2, 0, 983053, 2, 0, 983054, 4, 0, 1048591, 5, 0, 1048592, 2, 0, 1048593, 2, 0, 1048594, 2, 0, 1048595, 2, 0, 1048596, 2, 0, 1048597, 2, 0, 1048598, 4, 0 )
 
 [node name="Tiles_Solid" type="TileMap" parent="."]
 tile_set = ExtResource( 1 )
@@ -202,10 +152,10 @@ tile_set = SubResource( 13 )
 collision_layer = 64
 collision_mask = 0
 format = 1
-tile_data = PoolIntArray( 262169, 1, 0, 327705, 0, 0, 393241, 0, 0, 458777, 0, 0, 524313, 0, 0, 589849, 0, 0, 655385, 0, 0, 720921, 0, 0, 786457, 0, 0, 851993, 0, 0 )
+tile_data = PoolIntArray( 262162, 1, 0, 262169, 1, 0, 327698, 0, 0, 327705, 0, 0, 393234, 0, 0, 393241, 0, 0, 458770, 0, 0, 458777, 0, 0, 524313, 0, 0, 589849, 0, 0, 655385, 0, 0, 720921, 0, 0, 786457, 0, 0, 851993, 0, 0 )
 
 [node name="Steve" parent="." instance=ExtResource( 2 )]
-position = Vector2( 176, 31 )
+position = Vector2( 1064, 128 )
 
 [node name="Camera2D" type="Camera2D" parent="Steve"]
 current = true
@@ -322,6 +272,15 @@ custom_colors/font_outline_modulate = Color( 0.647059, 0.560784, 0, 1 )
 custom_fonts/font = SubResource( 10 )
 text = "$$"
 valign = 1
+
+[node name="Ladder_Tops" type="Node2D" parent="."]
+position = Vector2( 64, 0 )
+
+[node name="Ladder_Top" parent="Ladder_Tops" instance=ExtResource( 14 )]
+position = Vector2( 1120, 264 )
+
+[node name="Ladder_Top2" parent="Ladder_Tops" instance=ExtResource( 14 )]
+position = Vector2( 1568, 272 )
 
 [node name="Enemies" type="Node2D" parent="."]
 

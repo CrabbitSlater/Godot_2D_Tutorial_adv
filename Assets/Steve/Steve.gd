@@ -30,7 +30,6 @@ var coins : int = 0
 
 func _physics_process(delta):
 	
-	print(on_ladder)
 	#match statement is like a switch case  i.e. see if self.state 
 	#is equal to any of the following states in the enum
 	match self.state: 
@@ -138,7 +137,7 @@ func _physics_process(delta):
 				Input.action_release("player_down")
 				continue
 				#force release of up or down so we dont cycle between floor and ladder states
-			elif Input.is_action_pressed("player_jump"):
+			elif Input.is_action_just_pressed("player_jump"):
 				Input.action_release("player_up")
 				Input.action_release("player_down")
 				velocity.y = jump_force *0.7
@@ -190,7 +189,7 @@ func set_direction():
 	$WallChecker.rotation_degrees = 90 * -direction
 	
 func is_near_wall():
-	return $WallChecker.is_colliding()
+	return $WallChecker.is_colliding() and not $WallChecker.get_collider().is_in_group("one_way")
 
 func fire():
 	if Input.is_action_just_pressed("player_fire") and not is_near_wall():
