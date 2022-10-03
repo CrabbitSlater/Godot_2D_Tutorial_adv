@@ -12,6 +12,7 @@ const FIREBALL = preload("res://Assets/Fireball/Fireball.tscn")
 var velocity: Vector2  = Vector2(0.0,0.0)
 export var gravity : float = 35.0
 export var  top_speed : float = 300
+const  LADDER_SPEED  = 200
 export var top_run_speed : float = 450
 export var top_air_speed : float = 400
 export var acceleration : float = 1000
@@ -21,6 +22,7 @@ export var jump_force : float = -900
 export var wall_kick_force :float = 450
 var direction : int = 1
 var last_jump_direction :int =0
+var on_ladder := false #statically typed variable! use these as often as we can
 
 var coins : int = 0
 #onready var 
@@ -28,7 +30,7 @@ var coins : int = 0
 
 func _physics_process(delta):
 	
-	print(is_near_wall())
+	print(on_ladder)
 	#match statement is like a switch case  i.e. see if self.state 
 	#is equal to any of the following states in the enum
 	match self.state: 
@@ -39,6 +41,9 @@ func _physics_process(delta):
 				continue #skips rest of code in this match case 
 			elif is_near_wall():
 				state=States.WALL
+				continue
+			elif should_climb_ladder():
+				self.state = States.LADDER
 				continue
 				
 			$Sprite.play("Air")
@@ -60,6 +65,8 @@ func _physics_process(delta):
 			if not is_on_floor():
 				self.state=States.AIR
 				continue
+			elif should_climb_ladder():
+				self.state=States.LADDER
 			
 			
 			
@@ -119,9 +126,63 @@ func _physics_process(delta):
 				velocity.y= jump_force *0.7
 				$SoundJump.play()
 				state = States.AIR
-			
-			
 			move_and_fall(true)
+			
+		States.LADDER:
+			
+			if not on_ladder:
+				state = States.AIR
+				continue
+			elif is_on_floor() and Input.is_action_pressed("player_down"):
+				state = States.FLOOR
+				Input.action_release("player_down")
+				continue
+				#force release of up or down so we dont cycle between floor and ladder states
+			elif Input.is_action_pressed("player_jump"):
+				Input.action_release("player_up")
+				Input.action_release("player_down")
+				velocity.y = jump_force *0.7
+				$SoundJump.play()
+				self.state=States.AIR
+				continue
+				
+				
+				
+			
+			
+			
+			if Input.is_action_pressed("player_up") or Input.is_action_pressed("player_down") or Input.is_action_pressed("player_left") or Input.is_action_pressed("player_right"):
+				$Sprite.speed_scale=1
+				$Sprite.play("Climb")
+			else: 
+				$Sprite.stop()
+				
+			if Input.is_action_pressed("player_up"):
+				velocity.y = -LADDER_SPEED
+			elif Input.is_action_pressed("player_down"):
+				velocity.y = LADDER_SPEED
+			else: 
+				velocity.y = lerp(velocity.y,0,0.3)
+			
+			if Input.is_action_pressed("player_left"):
+				self.velocity.x = -LADDER_SPEED/6
+			elif Input.is_action_pressed("player_right"):
+				self.velocity.x = LADDER_SPEED/6
+			else: 
+				self.velocity.x = lerp(self.velocity.x,0,0.3)
+			
+			
+			self.velocity = move_and_slide(self.velocity,Vector2.UP)
+			
+			
+			
+	
+#static return type on function! use theese standards 
+func should_climb_ladder() -> bool:
+	if on_ladder and (Input.is_action_pressed("player_up") or Input.is_action_pressed("player_down")):
+		return true
+	else:
+		return false
 	
 func set_direction():
 	
@@ -194,3 +255,13 @@ func ouch(var enemy_pos_x):
 
 func _on_Timer_timeout():
 	get_tree().change_scene("res://Assets/GameOverScreen.tscn")
+
+
+func _on_LadderChecker_body_entered(body):
+	#ladder checker only has a mask for ladder tiles 
+	on_ladder=true
+	pass # Replace with function body.
+	
+func _on_LadderChecker_body_exited(body):
+	on_ladder = false
+	pass # Replace with function body.
