@@ -220,8 +220,9 @@ func _on_Fall_Zone_body_entered(body):
 	
 	#sorted this bug using collisions layers- fall zone now only detects things on player 
 	
-	get_tree().change_scene("res://Assets/GameOverScreen.tscn")
-	
+	Global.lose_life()
+	if(Global.lives>0):
+		get_tree().reload_current_scene()
 	#pass # Replace with function body.
 	
 func add_coin():
@@ -232,6 +233,9 @@ func bounce():
 	velocity.y=jump_force*0.5
 	
 func ouch(var enemy_pos_x):
+	
+	Global.lose_life()
+	
 	self.set_modulate(Color(1,0.3,0.3,0.6))
 	#get relative position of thing that ouched us to ourselves
 	
@@ -253,7 +257,10 @@ func ouch(var enemy_pos_x):
 
 
 func _on_Timer_timeout():
-	get_tree().change_scene("res://Assets/GameOverScreen.tscn")
+	
+	
+	self.set_modulate(Color(1,1,1,1))
+	
 
 
 func _on_LadderChecker_body_entered(body):
