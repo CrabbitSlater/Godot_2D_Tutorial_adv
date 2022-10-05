@@ -23,7 +23,7 @@ export var wall_kick_force :float = 450
 var direction : int = 1
 var last_jump_direction :int =0
 var on_ladder := false #statically typed variable! use these as often as we can
-
+var hurt:= 0 #colon implies static typing (in this case int
 var coins : int = 0
 #onready var 
 
@@ -192,7 +192,7 @@ func is_near_wall():
 	return $WallChecker.is_colliding() and not $WallChecker.get_collider().is_in_group("one_way")
 
 func fire():
-	if Input.is_action_just_pressed("player_fire") and not is_near_wall():
+	if Input.is_action_just_pressed("player_fire") and not is_near_wall() and hurt ==0:
 		var f = FIREBALL.instance() 
 		#^create an instance of fireball in memory but NOT added to scene
 		f.direction = direction
@@ -236,7 +236,6 @@ func ouch(var enemy_pos_x):
 	
 	Global.lose_life()
 	
-	self.set_modulate(Color(1,0.3,0.3,0.6))
 	#get relative position of thing that ouched us to ourselves
 	
 	
@@ -253,13 +252,26 @@ func ouch(var enemy_pos_x):
 	Input.action_release("player_left")
 	Input.action_release("player_right")
 	#start timer to reset level
+	
+	self.set_modulate(Color(10,10,10,0.8))
+	set_collision_layer_bit(0, false)
+	#remove steve from his collision layer so he cant get hurt again
+	hurt = 20
 	$Timer.start()	
 
 
 func _on_Timer_timeout():
 	
+	hurt-=1
 	
-	self.set_modulate(Color(1,1,1,1))
+	if hurt <=0:
+		$Timer.stop()
+		self.set_modulate(Color(1,1,1,1))
+		set_collision_layer_bit(0, true)
+		#reset steve's color and collision properties 
+	else:
+		set_modulate(Color(10,10,10,0.8) if hurt %2==0 else Color(1,0.3,0.3,0.6))
+
 	
 
 
