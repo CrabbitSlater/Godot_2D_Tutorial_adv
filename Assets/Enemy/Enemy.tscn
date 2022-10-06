@@ -58,6 +58,7 @@ one_shot = true
 [node name="SoundSquash" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
 volume_db = -5.0
+bus = "SFX"
 
 [connection signal="body_entered" from="TopChecker" to="." method="_on_TopChecker_body_entered"]
 [connection signal="body_entered" from="SidesChecker" to="." method="_on_SidesChecker_body_entered"]

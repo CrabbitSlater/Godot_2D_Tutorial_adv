@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://Assets/Steve/world_tileset.tres" type="TileSet" id=1]
 [ext_resource path="res://Assets/Steve/Steve.tscn" type="PackedScene" id=2]
@@ -86,6 +86,13 @@ font_data = ExtResource( 8 )
 size = 48
 outline_size = 2
 font_data = ExtResource( 8 )
+
+[sub_resource type="StyleBoxFlat" id=14]
+bg_color = Color( 0.203922, 0.2, 0.2, 0.796078 )
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
 
 [node name="Test_Level" type="Node2D"]
 
@@ -295,6 +302,26 @@ texture = ExtResource( 16 )
 expand = true
 stretch_mode = 2
 
+[node name="PauseMenu" type="Panel" parent="HUD"]
+pause_mode = 2
+visible = false
+margin_left = 256.0
+margin_top = 157.0
+margin_right = 856.0
+margin_bottom = 457.0
+custom_styles/panel = SubResource( 14 )
+
+[node name="Button" type="Button" parent="HUD/PauseMenu"]
+margin_left = 260.0
+margin_top = 251.0
+margin_right = 324.0
+margin_bottom = 271.0
+text = "Resume"
+
+[node name="Animated Widget" type="TextureRect" parent="HUD/PauseMenu"]
+margin_right = 40.0
+margin_bottom = 40.0
+
 [node name="Ladder_Tops" type="Node2D" parent="."]
 position = Vector2( 64, 0 )
 
@@ -321,6 +348,7 @@ detects_cliffs = false
 stream = ExtResource( 11 )
 volume_db = -12.0
 autoplay = true
+bus = "Music"
 
 [connection signal="body_entered" from="Fall_Zone" to="Steve" method="_on_Fall_Zone_body_entered"]
 [connection signal="coin_collected" from="Coin_Container/Coin" to="HUD" method="_on_coin_collected"]

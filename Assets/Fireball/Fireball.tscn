@@ -30,6 +30,7 @@ autostart = true
 stream = ExtResource( 3 )
 volume_db = -10.0
 pitch_scale = 1.5
+bus = "SFX"
 
 [connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

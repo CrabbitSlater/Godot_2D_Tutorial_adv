@@ -35,6 +35,7 @@ wait_time = 0.2
 stream = ExtResource( 3 )
 volume_db = -10.0
 pitch_scale = 1.28
+bus = "SFX"
 
 [node name="WallChecker" type="RayCast2D" parent="."]
 position = Vector2( 0, 10 )
