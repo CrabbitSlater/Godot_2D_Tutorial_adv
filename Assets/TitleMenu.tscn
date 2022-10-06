@@ -32,7 +32,7 @@ size = 32
 font_data = ExtResource( 8 )
 
 [sub_resource type="DynamicFont" id=3]
-size = 80
+size = 40
 outline_size = 3
 outline_color = Color( 0.721569, 0.654902, 0.913725, 1 )
 font_data = ExtResource( 2 )
@@ -64,7 +64,7 @@ align = 1
 anchor_top = 0.987
 anchor_bottom = 0.987
 margin_left = 64.0
-margin_top = -176.2
+margin_top = -224.2
 margin_right = 304.0
 margin_bottom = -40.2
 custom_styles/panel = SubResource( 2 )
@@ -157,9 +157,9 @@ valign = 1
 
 [node name="Label3" type="Label" parent="PanelEnemies"]
 margin_left = -640.0
-margin_top = 32.0
-margin_right = -579.0
-margin_bottom = 71.0
+margin_top = -16.0
+margin_right = -552.0
+margin_bottom = 23.0
 custom_fonts/font = SubResource( 5 )
 text = "Jump!"
 align = 1
@@ -167,9 +167,9 @@ valign = 1
 
 [node name="Label4" type="Label" parent="PanelEnemies"]
 margin_left = -640.0
-margin_top = 80.0
+margin_top = 32.0
 margin_right = -552.0
-margin_bottom = 119.0
+margin_bottom = 71.0
 custom_fonts/font = SubResource( 5 )
 text = "Move!"
 align = 1
@@ -198,9 +198,85 @@ text = "Play"
 flat = true
 script = ExtResource( 3 )
 
+[node name="QuitButton" type="Button" parent="."]
+margin_left = 352.0
+margin_top = 462.0
+margin_right = 660.0
+margin_bottom = 574.0
+custom_colors/font_color = Color( 0.905882, 0.403922, 0.960784, 1 )
+custom_colors/font_color_hover = Color( 0.352941, 0.027451, 0.372549, 1 )
+custom_colors/font_color_pressed = Color( 0.117647, 0.0117647, 0.278431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Quit"
+flat = true
+
+[node name="SettingsButton2" type="Button" parent="."]
+margin_left = 352.0
+margin_top = 352.0
+margin_right = 660.0
+margin_bottom = 464.0
+custom_colors/font_color = Color( 0.52549, 0.403922, 0.960784, 1 )
+custom_colors/font_color_hover = Color( 0.352941, 0.027451, 0.372549, 1 )
+custom_colors/font_color_pressed = Color( 0.117647, 0.0117647, 0.278431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Settings"
+flat = true
+
 [node name="MusicTitleScreen" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 5 )
 volume_db = -10.0
 autoplay = true
 
+[node name="Popup" type="Popup" parent="."]
+visible = true
+margin_left = 480.0
+margin_top = 256.0
+margin_right = 520.0
+margin_bottom = 296.0
+
+[node name="Settings_tabs" type="TabContainer" parent="Popup"]
+anchor_left = -12.0
+anchor_top = -6.4
+anchor_right = 13.6
+anchor_bottom = 8.6
+margin_left = 208.0
+margin_top = 144.0
+margin_right = -176.0
+margin_bottom = -138.0
+
+[node name="Visual" type="Button" parent="Popup/Settings_tabs"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="Fullscreen" type="Control" parent="Popup/Settings_tabs/Visual"]
+margin_left = 268.0
+margin_top = 48.0
+margin_right = 308.0
+margin_bottom = 88.0
+
+[node name="FullscreenCheck" type="CheckBox" parent="Popup/Settings_tabs/Visual/Fullscreen"]
+margin_left = 100.0
+margin_right = 124.0
+margin_bottom = 24.0
+
+[node name="Fullscreen" type="Label" parent="Popup/Settings_tabs/Visual/Fullscreen"]
+margin_right = 66.0
+margin_bottom = 14.0
+text = "Fullscreen"
+
+[node name="Audio" type="Button" parent="Popup/Settings_tabs"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
 [connection signal="pressed" from="PlayButton" to="PlayButton" method="_on_PlayButton_pressed"]
+[connection signal="pressed" from="QuitButton" to="QuitButton" method="_on_PlayButton_pressed"]
+[connection signal="pressed" from="SettingsButton2" to="SettingsButton2" method="_on_PlayButton_pressed"]
