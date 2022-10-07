@@ -1,6 +1,6 @@
 extends Node
 
-# ^^ a singleton that handles lives 
+# ^^ a singleton that handles lives
 
 # a pointe to the hud, set by the HUD's onready function.
 var hud 
