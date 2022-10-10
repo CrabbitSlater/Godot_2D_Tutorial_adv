@@ -9,12 +9,10 @@ func _on_PlayButton_pressed():
 
 func _on_SettingsButton_pressed():
 	$Settings_tabs.visible=true
-	GlobalSettings.accept_setting_commands = true
 
 
 func _on_SettingsCloseButton_pressed():
-	$Settings_tabs.visible=false
-	GlobalSettings.accept_setting_commands = false
+	$Settings_tabs.visible = false
 
 
 func _on_QuitButton_pressed():
