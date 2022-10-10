@@ -13,3 +13,7 @@ func _on_SettingsButton_pressed():
 
 func _on_SettingsCloseButton_pressed():
 	$Settings_tabs.visible=false
+
+
+func _on_QuitButton_pressed():
+	get_tree().quit()

@@ -252,7 +252,6 @@ theme = ExtResource( 3 )
 script = ExtResource( 10 )
 
 [node name="Visual" type="Control" parent="Settings_tabs"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -300,6 +299,7 @@ custom_fonts/font = SubResource( 6 )
 text = "Close"
 
 [node name="Audio" type="Control" parent="Settings_tabs"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -388,7 +388,7 @@ text = "Close"
 icon = SubResource( 8 )
 
 [connection signal="pressed" from="PlayButton" to="." method="_on_PlayButton_pressed"]
-[connection signal="pressed" from="QuitButton" to="QuitButton" method="_on_PlayButton_pressed"]
+[connection signal="pressed" from="QuitButton" to="." method="_on_QuitButton_pressed"]
 [connection signal="pressed" from="SettingsButton" to="." method="_on_SettingsButton_pressed"]
 [connection signal="toggled" from="Settings_tabs/Visual/Fullscreen/FullscreenCheck" to="Settings_tabs" method="_on_FullscreenCheck_toggled"]
 [connection signal="pressed" from="Settings_tabs/Visual/SettingsCloseButton2" to="." method="_on_SettingsCloseButton_pressed"]
