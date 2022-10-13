@@ -11,3 +11,11 @@ margin_left = 100.0
 margin_top = 100.0
 margin_right = 100.0
 margin_bottom = 100.0
+
+[node name="LineEdit" type="LineEdit" parent="."]
+margin_left = 100.0
+margin_top = 100.0
+margin_right = 182.0
+margin_bottom = 140.0
+max_length = 3
+expand_to_text_length = true

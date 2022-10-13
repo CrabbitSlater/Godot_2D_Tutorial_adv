@@ -669,6 +669,7 @@ anims/RESET = SubResource( 19 )
 anims/Title_sway = SubResource( 20 )
 
 [node name="Level_Sec" type="Timer" parent="HUD"]
+pause_mode = 1
 autostart = true
 
 [node name="Ladder_Tops" type="Node2D" parent="."]
