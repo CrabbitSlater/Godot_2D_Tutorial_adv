@@ -1,9 +1,11 @@
 extends KinematicBody2D
 
+class_name Enemy
 var velocity = Vector2()
 var gravity :float = 20
 export var direction = -1  #left is -1, right it +1
 var speed :float = 75
+signal enemy_squished
 
 export var detects_cliffs : bool = true
 
@@ -51,6 +53,7 @@ func _on_TopChecker_body_entered(body):
 	$Timer.start()
 	$AnimatedSprite.play("Squash")
 	$SoundSquash.play()
+	emit_signal("enemy_squished")
 	self.speed=0
 	#disable collisions by remiving self from layer and maslk
 	self.set_collision_layer_bit(4, false)

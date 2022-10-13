@@ -1,6 +1,7 @@
 extends CanvasLayer
 
 var coins:int = 0 
+var enemies : int = 0
 const HEARTS_WIDTH = 53
 
 
@@ -8,11 +9,18 @@ func _ready():
 	$Coins.text=String(coins)
 	load_hearts()
 	Global.hud = self # give reference of ourselves to the global node 
+	for enemy in $"../Enemies".get_children():
+		var temp_enemy:Enemy = enemy 
+		temp_enemy.connect("enemy_squished",self,"_on_enemy_squished")
+		
 	
 
 func _on_coin_collected():
 	coins +=1
 	_ready()
+	
+func _on_enemy_squished():
+	enemies+=1
 	
 func load_hearts():
 	#Dont forget to enable expand on the hearts texturerect

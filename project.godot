@@ -8,6 +8,16 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "KinematicBody2D",
+"class": "Enemy",
+"language": "GDScript",
+"path": "res://Assets/Enemy/Enemy.gd"
+} ]
+_global_script_class_icons={
+"Enemy": ""
+}
+
 [application]
 
 config/name="Enhanced 2d Tutorial"
