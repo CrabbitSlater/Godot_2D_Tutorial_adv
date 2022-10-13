@@ -11,6 +11,12 @@ var lives = max_lives
 func new_game():
 	lives= max_lives
 
+func win_game():
+	#tot up scores
+	#if score is highscore, allow name entry
+	#otherwise just show win screen and high scores 
+	get_tree().change_scene("res://Assets/GameWinScreen.tscn")
+
 func lose_life():
 	lives-=1
 	hud.load_hearts()
