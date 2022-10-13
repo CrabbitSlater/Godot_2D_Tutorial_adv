@@ -56,13 +56,6 @@ margin_top = 88.0
 margin_right = 308.0
 margin_bottom = 128.0
 
-[node name="Resolution Label" type="Label" parent="Visual/Resolution"]
-margin_left = -32.0
-margin_right = 84.0
-margin_bottom = 63.0
-text = "Resolution
-"
-
 [node name="SettingsCloseButton" type="Button" parent="Visual"]
 margin_left = 252.0
 margin_top = 208.0

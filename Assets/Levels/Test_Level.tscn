@@ -428,9 +428,9 @@ margin_bottom = -2273.0
 [node name="PauseTitle" type="Label" parent="HUD/PauseMenu"]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -412.0
+margin_left = -112.0
 margin_top = -53.0
-margin_right = 409.005
+margin_right = 709.005
 margin_bottom = 62.0006
 custom_colors/font_color = Color( 0.309804, 0.105882, 0.752941, 1 )
 custom_colors/font_outline_modulate = Color( 0.866667, 0.568627, 0.988235, 1 )
