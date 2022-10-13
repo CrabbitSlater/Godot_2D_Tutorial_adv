@@ -1,0 +1,79 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Assets/UI/Fonts/BalsamiqSans-Bold.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Assets/Enemy/Sprites/slimeBlue_blue.png" type="Texture" id=2]
+[ext_resource path="res://Assets/UI/UI_Img/coin_gold.png" type="Texture" id=3]
+[ext_resource path="res://Assets/UI/ScoreContainer.gd" type="Script" id=4]
+
+[sub_resource type="DynamicFont" id=1]
+size = 32
+font_data = ExtResource( 1 )
+
+[node name="ScoreContainer" type="Control"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( -592, -32 )
+script = ExtResource( 4 )
+
+[node name="CoinPair" type="Control" parent="."]
+margin_left = 125.0
+margin_right = 165.0
+margin_bottom = 40.0
+
+[node name="CoinImg" type="TextureRect" parent="CoinPair"]
+margin_left = 75.0
+margin_right = 115.0
+margin_bottom = 40.0
+texture = ExtResource( 3 )
+expand = true
+
+[node name="CoinLabel" type="Label" parent="CoinPair"]
+margin_top = 5.0
+margin_right = 61.0
+margin_bottom = 44.0
+custom_fonts/font = SubResource( 1 )
+text = "XXX-"
+align = 1
+valign = 1
+
+[node name="EnemyPair" type="Control" parent="."]
+margin_left = 275.0
+margin_right = 315.0
+margin_bottom = 40.0
+
+[node name="EnemyImg" type="TextureRect" parent="EnemyPair"]
+margin_left = 75.0
+margin_top = 5.0
+margin_right = 115.0
+margin_bottom = 35.0
+texture = ExtResource( 2 )
+expand = true
+
+[node name="EnemyLabel" type="Label" parent="EnemyPair"]
+margin_top = 5.0
+margin_right = 61.0
+margin_bottom = 44.0
+custom_fonts/font = SubResource( 1 )
+text = "XXX-"
+align = 1
+valign = 1
+
+[node name="TimeLabel" type="Label" parent="."]
+margin_left = 425.0
+margin_top = 5.0
+margin_right = 509.0
+margin_bottom = 44.0
+custom_fonts/font = SubResource( 1 )
+text = "99:99"
+align = 1
+valign = 1
+
+[node name="PlayerName" type="Label" parent="."]
+margin_top = 5.0
+margin_right = 100.0
+margin_bottom = 44.0
+custom_fonts/font = SubResource( 1 )
+text = "AAAAA"
+align = 1
+valign = 1
