@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://Assets/Steve/world_tileset.tres" type="TileSet" id=1]
 [ext_resource path="res://Assets/Steve/Steve.tscn" type="PackedScene" id=2]
@@ -16,6 +16,7 @@
 [ext_resource path="res://Assets/Objects/Ladder/Ladder_Top.tscn" type="PackedScene" id=14]
 [ext_resource path="res://Assets/UI/UI_Img/hud_heartEmpty.png" type="Texture" id=15]
 [ext_resource path="res://Assets/UI/UI_Img/hud_heartFull.png" type="Texture" id=16]
+[ext_resource path="res://Assets/UI/Fonts/KiriFont.ttf" type="DynamicFontData" id=17]
 
 [sub_resource type="ConvexPolygonShape2D" id=11]
 points = PoolVector2Array( 48, 64, 16, 64, 16, 0, 48, 0 )
@@ -93,6 +94,12 @@ corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
+
+[sub_resource type="DynamicFont" id=15]
+size = 40
+outline_size = 3
+outline_color = Color( 0.721569, 0.654902, 0.913725, 1 )
+font_data = ExtResource( 17 )
 
 [node name="Test_Level" type="Node2D"]
 
@@ -240,6 +247,7 @@ position = Vector2( 660, 272 )
 position = Vector2( 708, 272 )
 
 [node name="HUD" type="CanvasLayer" parent="."]
+pause_mode = 2
 script = ExtResource( 9 )
 
 [node name="Panel" type="Panel" parent="HUD"]
@@ -311,16 +319,21 @@ margin_right = 856.0
 margin_bottom = 457.0
 custom_styles/panel = SubResource( 14 )
 
-[node name="Button" type="Button" parent="HUD/PauseMenu"]
-margin_left = 260.0
-margin_top = 251.0
-margin_right = 324.0
-margin_bottom = 271.0
-text = "Resume"
-
 [node name="Animated Widget" type="TextureRect" parent="HUD/PauseMenu"]
 margin_right = 40.0
 margin_bottom = 40.0
+
+[node name="Resume_button" type="Button" parent="HUD/PauseMenu"]
+margin_left = 192.0
+margin_top = 219.0
+margin_right = 396.0
+margin_bottom = 272.0
+custom_colors/font_color = Color( 0.52549, 0.403922, 0.960784, 1 )
+custom_colors/font_color_hover = Color( 0.215686, 0.027451, 0.372549, 1 )
+custom_colors/font_color_pressed = Color( 0.117647, 0.0117647, 0.278431, 1 )
+custom_fonts/font = SubResource( 15 )
+text = "Resume"
+flat = true
 
 [node name="Ladder_Tops" type="Node2D" parent="."]
 position = Vector2( 64, 0 )
@@ -367,3 +380,4 @@ bus = "Music"
 [connection signal="coin_collected" from="Coin_Container/Coin14" to="HUD" method="_on_coin_collected"]
 [connection signal="coin_collected" from="Coin_Container/Coin15" to="HUD" method="_on_coin_collected"]
 [connection signal="coin_collected" from="Coin_Container/Coin16" to="HUD" method="_on_coin_collected"]
+[connection signal="pressed" from="HUD/PauseMenu/Resume_button" to="HUD" method="_on_Resume_button_pressed"]
