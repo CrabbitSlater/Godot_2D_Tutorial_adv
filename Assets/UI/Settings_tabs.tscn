@@ -1,0 +1,191 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://tutorial_default.tres" type="Theme" id=1]
+[ext_resource path="res://Assets/UI/Fonts/KiriFont.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://Assets/Settings_tabs.gd" type="Script" id=3]
+
+[sub_resource type="DynamicFont" id=6]
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=7]
+font_data = ExtResource( 2 )
+
+[sub_resource type="AtlasTexture" id=8]
+
+[node name="Settings_tabs" type="TabContainer"]
+visible = false
+anchor_left = -12.0
+anchor_top = -6.4
+anchor_right = 13.6
+anchor_bottom = 8.6
+margin_left = 12496.0
+margin_top = 3984.0
+margin_right = -13118.4
+margin_bottom = -4716.0
+theme = ExtResource( 1 )
+script = ExtResource( 3 )
+
+[node name="Visual" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 48.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="Fullscreen" type="Control" parent="Visual"]
+margin_left = 268.0
+margin_top = 48.0
+margin_right = 308.0
+margin_bottom = 88.0
+
+[node name="FullscreenCheck" type="CheckBox" parent="Visual/Fullscreen"]
+margin_left = 100.0
+margin_right = 124.0
+margin_bottom = 24.0
+
+[node name="Fullscreen" type="Label" parent="Visual/Fullscreen"]
+margin_left = -32.0
+margin_right = 84.0
+margin_bottom = 30.0
+text = "Fullscreen"
+
+[node name="Resolution" type="Control" parent="Visual"]
+margin_left = 268.0
+margin_top = 88.0
+margin_right = 308.0
+margin_bottom = 128.0
+
+[node name="Resolution Label" type="Label" parent="Visual/Resolution"]
+margin_left = -32.0
+margin_right = 84.0
+margin_bottom = 63.0
+text = "Resolution
+"
+
+[node name="SettingsCloseButton" type="Button" parent="Visual"]
+margin_left = 252.0
+margin_top = 208.0
+margin_right = 364.0
+margin_bottom = 240.0
+theme = ExtResource( 1 )
+custom_fonts/font = SubResource( 6 )
+text = "Close"
+
+[node name="Defaults_button2" type="Button" parent="Visual"]
+margin_left = 252.0
+margin_top = 151.0
+margin_right = 353.0
+margin_bottom = 183.0
+custom_fonts/font = SubResource( 7 )
+text = "Default"
+icon = SubResource( 8 )
+
+[node name="Audio" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="Music" type="Control" parent="Audio"]
+margin_left = 268.0
+margin_top = 48.0
+margin_right = 308.0
+margin_bottom = 88.0
+
+[node name="MusicMuteCheck" type="CheckBox" parent="Audio/Music"]
+margin_left = 96.0
+margin_right = 120.0
+margin_bottom = 24.0
+
+[node name="Music Label" type="Label" parent="Audio/Music"]
+margin_left = -208.0
+margin_right = -102.0
+margin_bottom = 63.0
+text = "Music Vol
+"
+
+[node name="MuteLabel" type="Label" parent="Audio/Music"]
+margin_left = 128.0
+margin_right = 194.0
+margin_bottom = 48.0
+text = "Mute
+
+"
+
+[node name="MusicVolSlider" type="HSlider" parent="Audio/Music"]
+margin_left = -80.0
+margin_right = 80.0
+margin_bottom = 16.0
+min_value = -26.0
+max_value = 6.0
+step = 0.01
+tick_count = 10
+
+[node name="SFX" type="Control" parent="Audio"]
+margin_left = 268.0
+margin_top = 88.0
+margin_right = 308.0
+margin_bottom = 128.0
+
+[node name="SFXMuteCheck" type="CheckBox" parent="Audio/SFX"]
+margin_left = 96.0
+margin_right = 120.0
+margin_bottom = 24.0
+
+[node name="SFX Label" type="Label" parent="Audio/SFX"]
+margin_left = -192.0
+margin_right = -107.0
+margin_bottom = 63.0
+text = "SFX Vol
+"
+
+[node name="MuteLabel" type="Label" parent="Audio/SFX"]
+margin_left = 128.0
+margin_right = 194.0
+margin_bottom = 48.0
+text = "Mute
+
+"
+
+[node name="SFXVolSlider" type="HSlider" parent="Audio/SFX"]
+margin_left = -80.0
+margin_top = 8.0
+margin_right = 80.0
+margin_bottom = 24.0
+min_value = -26.0
+max_value = 6.0
+step = 0.01
+tick_count = 10
+
+[node name="SettingsCloseButton" type="Button" parent="Audio"]
+margin_left = 252.0
+margin_top = 208.0
+margin_right = 332.0
+margin_bottom = 240.0
+custom_fonts/font = SubResource( 7 )
+text = "Close"
+icon = SubResource( 8 )
+
+[node name="Defaults_button" type="Button" parent="Audio"]
+margin_left = 252.0
+margin_top = 167.0
+margin_right = 332.0
+margin_bottom = 199.0
+custom_fonts/font = SubResource( 7 )
+text = "Default"
+icon = SubResource( 8 )
+
+[connection signal="visibility_changed" from="." to="." method="_on_Settings_tabs_visibility_changed"]
+[connection signal="toggled" from="Visual/Fullscreen/FullscreenCheck" to="." method="_on_FullscreenCheck_toggled"]
+[connection signal="pressed" from="Visual/SettingsCloseButton" to="." method="_on_SettingsCloseButton_pressed"]
+[connection signal="pressed" from="Visual/Defaults_button2" to="." method="_on_Defaults_button_pressed"]
+[connection signal="toggled" from="Audio/Music/MusicMuteCheck" to="." method="_on_Music_Mute_Check_toggled"]
+[connection signal="value_changed" from="Audio/Music/MusicVolSlider" to="." method="_on_MusicVolSlider_value_changed"]
+[connection signal="toggled" from="Audio/SFX/SFXMuteCheck" to="." method="_on_SFX_Mute_Check_toggled"]
+[connection signal="value_changed" from="Audio/SFX/SFXVolSlider" to="." method="_on_SFXVol_value_changed"]
+[connection signal="pressed" from="Audio/SettingsCloseButton" to="." method="_on_SettingsCloseButton_pressed"]
+[connection signal="pressed" from="Audio/Defaults_button" to="." method="_on_Defaults_button_pressed"]

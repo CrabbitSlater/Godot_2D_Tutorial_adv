@@ -29,6 +29,7 @@ func _process(delta):
 		print("pausePress")
 	
 		if not $PauseMenu.is_visible_in_tree():
+			$PauseMenu/PauseTitle/AnimationPlayer.play("Pause_sway")
 			$PauseMenu.visible=true 
 			get_tree().paused = true
 		else:
@@ -40,4 +41,15 @@ func _process(delta):
 func _on_Resume_button_pressed():
 	$PauseMenu.visible = false
 	get_tree().paused = false
+	
+
+
+func _on_SettingsButton_pressed():
+	$PauseMenu/Settings_tabs.visible = true
+
+
+func _on_Quit_to_menu_pressed():
+	#dont forget to unpause!
+	get_tree().paused=false
+	get_tree().change_scene("res://Assets/TitleMenu.tscn")
 	

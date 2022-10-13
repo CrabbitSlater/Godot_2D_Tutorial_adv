@@ -1,6 +1,7 @@
 extends Control
 
-
+func _ready():
+	$Title_Label/AnimationPlayer.play("Title_sway")
 
 func _on_PlayButton_pressed():
 	Global.new_game()

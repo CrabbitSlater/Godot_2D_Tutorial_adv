@@ -70,3 +70,7 @@ func restore_defaults():
 
 func _on_Defaults_button_pressed():
 	self.restore_defaults()
+
+
+func _on_SettingsCloseButton_pressed():
+	self.visible = false

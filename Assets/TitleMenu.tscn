@@ -1,21 +1,58 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Assets/UI/UI_Img/grey_button04.png" type="Texture" id=1]
 [ext_resource path="res://Assets/UI/Fonts/KiriFont.ttf" type="DynamicFontData" id=2]
-[ext_resource path="res://tutorial_default.tres" type="Theme" id=3]
+[ext_resource path="res://Assets/UI/Settings_tabs.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Assets/UI/UI_Img/arrow-UP.png" type="Texture" id=4]
 [ext_resource path="res://Assets/Audio/music/Swinging Pants.ogg" type="AudioStream" id=5]
 [ext_resource path="res://Assets/UI/UI_Img/coin_gold.png" type="Texture" id=6]
 [ext_resource path="res://Assets/Enemy/Sprites/slimeBlue_blue.png" type="Texture" id=7]
 [ext_resource path="res://Assets/UI/Fonts/BalsamiqSans-Bold.ttf" type="DynamicFontData" id=8]
 [ext_resource path="res://Assets/TitleMenu.gd" type="Script" id=9]
-[ext_resource path="res://Assets/Settings_tabs.gd" type="Script" id=10]
 
 [sub_resource type="DynamicFont" id=1]
 size = 55
 outline_size = 5
 outline_color = Color( 0.729412, 0.639216, 0.937255, 1 )
 font_data = ExtResource( 2 )
+
+[sub_resource type="Animation" id=6]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/path = NodePath(".:rect_position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 112, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath(".:rect_position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 32, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "Title_sway"
+length = 3.0
+loop = true
+tracks/0/type = "bezier"
+tracks/0/path = NodePath(".:rect_position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 112, -0.25, 0, 0.5, -1, 27, -0.6, 0.5, 0.4, -0.5, 187.5, -0.4, -3, 0.5, -1, 112, -0.4, 1, 0.25, 0 ),
+"times": PoolRealArray( 0, 1, 2.2, 3.1 )
+}
 
 [sub_resource type="StyleBoxFlat" id=2]
 bg_color = Color( 0.6, 0.6, 0.6, 0.533333 )
@@ -39,14 +76,6 @@ outline_size = 3
 outline_color = Color( 0.721569, 0.654902, 0.913725, 1 )
 font_data = ExtResource( 2 )
 
-[sub_resource type="DynamicFont" id=6]
-font_data = ExtResource( 2 )
-
-[sub_resource type="DynamicFont" id=7]
-font_data = ExtResource( 2 )
-
-[sub_resource type="AtlasTexture" id=8]
-
 [node name="TitleMenu" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -57,19 +86,23 @@ margin_right = 1024.0
 margin_bottom = 600.0
 color = Color( 0.290196, 0.25098, 0.341176, 1 )
 
-[node name="Label" type="Label" parent="."]
+[node name="Title_Label" type="Label" parent="."]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -400.0
+margin_left = 112.0
 margin_top = 32.0
-margin_right = 421.0
-margin_bottom = 147.0
+margin_right = 933.005
+margin_bottom = 147.001
 custom_colors/font_color = Color( 0.309804, 0.105882, 0.752941, 1 )
 custom_colors/font_outline_modulate = Color( 0.866667, 0.568627, 0.988235, 1 )
 custom_fonts/font = SubResource( 1 )
 text = "Fuller 2d Platformer 
 Tutorial"
 align = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Title_Label"]
+anims/RESET = SubResource( 6 )
+anims/Title_sway = SubResource( 7 )
 
 [node name="PanelControls" type="Panel" parent="."]
 anchor_top = 0.987
@@ -238,183 +271,8 @@ volume_db = -10.0
 autoplay = true
 bus = "Music"
 
-[node name="Settings_tabs" type="TabContainer" parent="."]
-visible = false
-anchor_left = -12.0
-anchor_top = -6.4
-anchor_right = 13.6
-anchor_bottom = 8.6
-margin_left = 12496.0
-margin_top = 3984.0
-margin_right = -13118.4
-margin_bottom = -4716.0
-theme = ExtResource( 3 )
-script = ExtResource( 10 )
-
-[node name="Visual" type="Control" parent="Settings_tabs"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 48.0
-margin_right = -4.0
-margin_bottom = -4.0
-
-[node name="Fullscreen" type="Control" parent="Settings_tabs/Visual"]
-margin_left = 268.0
-margin_top = 48.0
-margin_right = 308.0
-margin_bottom = 88.0
-
-[node name="FullscreenCheck" type="CheckBox" parent="Settings_tabs/Visual/Fullscreen"]
-margin_left = 100.0
-margin_right = 124.0
-margin_bottom = 24.0
-
-[node name="Fullscreen" type="Label" parent="Settings_tabs/Visual/Fullscreen"]
-margin_left = -32.0
-margin_right = 84.0
-margin_bottom = 30.0
-text = "Fullscreen"
-
-[node name="Resolution" type="Control" parent="Settings_tabs/Visual"]
-margin_left = 268.0
-margin_top = 88.0
-margin_right = 308.0
-margin_bottom = 128.0
-
-[node name="Resolution Label" type="Label" parent="Settings_tabs/Visual/Resolution"]
-margin_left = -32.0
-margin_right = 84.0
-margin_bottom = 63.0
-text = "Resolution
-"
-
-[node name="SettingsCloseButton2" type="Button" parent="Settings_tabs/Visual"]
-margin_left = 252.0
-margin_top = 208.0
-margin_right = 364.0
-margin_bottom = 240.0
-theme = ExtResource( 3 )
-custom_fonts/font = SubResource( 6 )
-text = "Close"
-
-[node name="Defaults_button2" type="Button" parent="Settings_tabs/Visual"]
-margin_left = 252.0
-margin_top = 151.0
-margin_right = 353.0
-margin_bottom = 183.0
-custom_fonts/font = SubResource( 7 )
-text = "Default"
-icon = SubResource( 8 )
-
-[node name="Audio" type="Control" parent="Settings_tabs"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 32.0
-margin_right = -4.0
-margin_bottom = -4.0
-
-[node name="Music" type="Control" parent="Settings_tabs/Audio"]
-margin_left = 268.0
-margin_top = 48.0
-margin_right = 308.0
-margin_bottom = 88.0
-
-[node name="MusicMuteCheck" type="CheckBox" parent="Settings_tabs/Audio/Music"]
-margin_left = 96.0
-margin_right = 120.0
-margin_bottom = 24.0
-
-[node name="Music Label" type="Label" parent="Settings_tabs/Audio/Music"]
-margin_left = -208.0
-margin_right = -102.0
-margin_bottom = 63.0
-text = "Music Vol
-"
-
-[node name="MuteLabel" type="Label" parent="Settings_tabs/Audio/Music"]
-margin_left = 128.0
-margin_right = 194.0
-margin_bottom = 48.0
-text = "Mute
-
-"
-
-[node name="MusicVolSlider" type="HSlider" parent="Settings_tabs/Audio/Music"]
-margin_left = -80.0
-margin_right = 80.0
-margin_bottom = 16.0
-min_value = -26.0
-max_value = 6.0
-step = 0.01
-tick_count = 10
-
-[node name="SFX" type="Control" parent="Settings_tabs/Audio"]
-margin_left = 268.0
-margin_top = 88.0
-margin_right = 308.0
-margin_bottom = 128.0
-
-[node name="SFXMuteCheck" type="CheckBox" parent="Settings_tabs/Audio/SFX"]
-margin_left = 96.0
-margin_right = 120.0
-margin_bottom = 24.0
-
-[node name="SFX Label" type="Label" parent="Settings_tabs/Audio/SFX"]
-margin_left = -192.0
-margin_right = -107.0
-margin_bottom = 63.0
-text = "SFX Vol
-"
-
-[node name="MuteLabel" type="Label" parent="Settings_tabs/Audio/SFX"]
-margin_left = 128.0
-margin_right = 194.0
-margin_bottom = 48.0
-text = "Mute
-
-"
-
-[node name="SFXVolSlider" type="HSlider" parent="Settings_tabs/Audio/SFX"]
-margin_left = -80.0
-margin_top = 8.0
-margin_right = 80.0
-margin_bottom = 24.0
-min_value = -26.0
-max_value = 6.0
-step = 0.01
-tick_count = 10
-
-[node name="SettingsCloseButton" type="Button" parent="Settings_tabs/Audio"]
-margin_left = 252.0
-margin_top = 208.0
-margin_right = 332.0
-margin_bottom = 240.0
-custom_fonts/font = SubResource( 7 )
-text = "Close"
-icon = SubResource( 8 )
-
-[node name="Defaults_button" type="Button" parent="Settings_tabs/Audio"]
-margin_left = 252.0
-margin_top = 167.0
-margin_right = 332.0
-margin_bottom = 199.0
-custom_fonts/font = SubResource( 7 )
-text = "Default"
-icon = SubResource( 8 )
+[node name="Settings_tabs" parent="." instance=ExtResource( 3 )]
 
 [connection signal="pressed" from="PlayButton" to="." method="_on_PlayButton_pressed"]
 [connection signal="pressed" from="QuitButton" to="." method="_on_QuitButton_pressed"]
 [connection signal="pressed" from="SettingsButton" to="." method="_on_SettingsButton_pressed"]
-[connection signal="visibility_changed" from="Settings_tabs" to="Settings_tabs" method="_on_Settings_tabs_visibility_changed"]
-[connection signal="toggled" from="Settings_tabs/Visual/Fullscreen/FullscreenCheck" to="Settings_tabs" method="_on_FullscreenCheck_toggled"]
-[connection signal="pressed" from="Settings_tabs/Visual/SettingsCloseButton2" to="." method="_on_SettingsCloseButton_pressed"]
-[connection signal="pressed" from="Settings_tabs/Visual/Defaults_button2" to="Settings_tabs" method="_on_Defaults_button_pressed"]
-[connection signal="toggled" from="Settings_tabs/Audio/Music/MusicMuteCheck" to="Settings_tabs" method="_on_Music_Mute_Check_toggled"]
-[connection signal="value_changed" from="Settings_tabs/Audio/Music/MusicVolSlider" to="Settings_tabs" method="_on_MusicVolSlider_value_changed"]
-[connection signal="toggled" from="Settings_tabs/Audio/SFX/SFXMuteCheck" to="Settings_tabs" method="_on_SFX_Mute_Check_toggled"]
-[connection signal="value_changed" from="Settings_tabs/Audio/SFX/SFXVolSlider" to="Settings_tabs" method="_on_SFXVol_value_changed"]
-[connection signal="pressed" from="Settings_tabs/Audio/SettingsCloseButton" to="." method="_on_SettingsCloseButton_pressed"]
-[connection signal="pressed" from="Settings_tabs/Audio/Defaults_button" to="Settings_tabs" method="_on_Defaults_button_pressed"]

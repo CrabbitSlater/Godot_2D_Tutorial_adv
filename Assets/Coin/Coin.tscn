@@ -54,7 +54,6 @@ shape = SubResource( 1 )
 scale = Vector2( 0.5, 0.5 )
 frames = ExtResource( 1 )
 animation = "New Anim 1"
-frame = 1
 playing = true
 
 [node name="SoundCoinCollect" type="AudioStreamPlayer" parent="."]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://Assets/Steve/world_tileset.tres" type="TileSet" id=1]
 [ext_resource path="res://Assets/Steve/Steve.tscn" type="PackedScene" id=2]
@@ -17,6 +17,7 @@
 [ext_resource path="res://Assets/UI/UI_Img/hud_heartEmpty.png" type="Texture" id=15]
 [ext_resource path="res://Assets/UI/UI_Img/hud_heartFull.png" type="Texture" id=16]
 [ext_resource path="res://Assets/UI/Fonts/KiriFont.ttf" type="DynamicFontData" id=17]
+[ext_resource path="res://Assets/UI/Settings_tabs.tscn" type="PackedScene" id=18]
 
 [sub_resource type="ConvexPolygonShape2D" id=11]
 points = PoolVector2Array( 48, 64, 16, 64, 16, 0, 48, 0 )
@@ -100,6 +101,65 @@ size = 40
 outline_size = 3
 outline_color = Color( 0.721569, 0.654902, 0.913725, 1 )
 font_data = ExtResource( 17 )
+
+[sub_resource type="DynamicFont" id=16]
+size = 40
+outline_size = 3
+outline_color = Color( 0.721569, 0.654902, 0.913725, 1 )
+font_data = ExtResource( 17 )
+
+[sub_resource type="DynamicFont" id=17]
+size = 45
+outline_size = 5
+outline_color = Color( 0.729412, 0.639216, 0.937255, 1 )
+font_data = ExtResource( 17 )
+
+[sub_resource type="Animation" id=18]
+resource_name = "Pause_sway"
+length = 4.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2, 3, 4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -112, -53 ), Vector2( -142, -53 ), Vector2( -82, -53 ), Vector2( -82, -53 ), Vector2( -112, -53 ) ]
+}
+
+[sub_resource type="Animation" id=19]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -112, -53 ) ]
+}
+
+[sub_resource type="Animation" id=20]
+resource_name = "Title_sway"
+length = 3.0
+loop = true
+tracks/0/type = "bezier"
+tracks/0/path = NodePath(".:rect_position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 112, -0.25, 0, 0.5, -1, 27, -0.6, 0.5, 0.4, -0.5, 187.5, -0.4, -3, 0.5, -1, 112, -0.4, 1, 0.25, 0 ),
+"times": PoolRealArray( 0, 1, 2.2, 3.1 )
+}
 
 [node name="Test_Level" type="Node2D"]
 
@@ -324,16 +384,64 @@ margin_right = 40.0
 margin_bottom = 40.0
 
 [node name="Resume_button" type="Button" parent="HUD/PauseMenu"]
-margin_left = 192.0
-margin_top = 219.0
-margin_right = 396.0
-margin_bottom = 272.0
+margin_left = 198.0
+margin_top = 67.0
+margin_right = 402.0
+margin_bottom = 120.0
 custom_colors/font_color = Color( 0.52549, 0.403922, 0.960784, 1 )
 custom_colors/font_color_hover = Color( 0.215686, 0.027451, 0.372549, 1 )
 custom_colors/font_color_pressed = Color( 0.117647, 0.0117647, 0.278431, 1 )
 custom_fonts/font = SubResource( 15 )
 text = "Resume"
 flat = true
+
+[node name="SettingsButton" type="Button" parent="HUD/PauseMenu"]
+margin_left = 177.0
+margin_top = 126.0
+margin_right = 427.0
+margin_bottom = 188.0
+custom_colors/font_color = Color( 0.52549, 0.403922, 0.960784, 1 )
+custom_colors/font_color_hover = Color( 0.352941, 0.027451, 0.372549, 1 )
+custom_colors/font_color_pressed = Color( 0.117647, 0.0117647, 0.278431, 1 )
+custom_fonts/font = SubResource( 16 )
+text = "Settings"
+flat = true
+
+[node name="Quit_to_menu" type="Button" parent="HUD/PauseMenu"]
+margin_left = 112.0
+margin_top = 195.0
+margin_right = 499.0
+margin_bottom = 257.0
+custom_colors/font_color = Color( 0.52549, 0.403922, 0.960784, 1 )
+custom_colors/font_color_hover = Color( 0.352941, 0.027451, 0.372549, 1 )
+custom_colors/font_color_pressed = Color( 0.117647, 0.0117647, 0.278431, 1 )
+custom_fonts/font = SubResource( 16 )
+text = "Quit To MEnu"
+flat = true
+
+[node name="Settings_tabs" parent="HUD/PauseMenu" instance=ExtResource( 18 )]
+margin_left = 7200.0
+margin_top = 1920.0
+margin_right = -7544.0
+margin_bottom = -2273.0
+
+[node name="PauseTitle" type="Label" parent="HUD/PauseMenu"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -412.0
+margin_top = -53.0
+margin_right = 409.005
+margin_bottom = 62.0006
+custom_colors/font_color = Color( 0.309804, 0.105882, 0.752941, 1 )
+custom_colors/font_outline_modulate = Color( 0.866667, 0.568627, 0.988235, 1 )
+custom_fonts/font = SubResource( 17 )
+text = "Paused"
+align = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="HUD/PauseMenu/PauseTitle"]
+anims/Pause_sway = SubResource( 18 )
+anims/RESET = SubResource( 19 )
+anims/Title_sway = SubResource( 20 )
 
 [node name="Ladder_Tops" type="Node2D" parent="."]
 position = Vector2( 64, 0 )
@@ -381,3 +489,5 @@ bus = "Music"
 [connection signal="coin_collected" from="Coin_Container/Coin15" to="HUD" method="_on_coin_collected"]
 [connection signal="coin_collected" from="Coin_Container/Coin16" to="HUD" method="_on_coin_collected"]
 [connection signal="pressed" from="HUD/PauseMenu/Resume_button" to="HUD" method="_on_Resume_button_pressed"]
+[connection signal="pressed" from="HUD/PauseMenu/SettingsButton" to="HUD" method="_on_SettingsButton_pressed"]
+[connection signal="pressed" from="HUD/PauseMenu/Quit_to_menu" to="HUD" method="_on_Quit_to_menu_pressed"]
