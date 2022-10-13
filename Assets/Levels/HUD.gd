@@ -2,6 +2,7 @@ extends CanvasLayer
 
 var coins:int = 0 
 var enemies : int = 0
+var time_secs :int = 0
 const HEARTS_WIDTH = 53
 
 
@@ -21,6 +22,8 @@ func _on_coin_collected():
 	
 func _on_enemy_squished():
 	enemies+=1
+	
+
 	
 func load_hearts():
 	#Dont forget to enable expand on the hearts texturerect
@@ -60,4 +63,12 @@ func _on_Quit_to_menu_pressed():
 	#dont forget to unpause!
 	get_tree().paused=false
 	get_tree().change_scene("res://Assets/TitleMenu.tscn")
+	
+
+
+func _on_Level_Sec_timeout():
+	time_secs+=1
+	var mins = floor(time_secs/60)
+	var seconds = round(time_secs%60)
+	$Time.text ="%02d:%02d" % [mins, seconds]
 	

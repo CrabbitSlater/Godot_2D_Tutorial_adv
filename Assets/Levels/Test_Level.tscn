@@ -515,11 +515,18 @@ position = Vector2( 708, 272 )
 pause_mode = 2
 script = ExtResource( 9 )
 
-[node name="Panel" type="Panel" parent="HUD"]
+[node name="MAin score bg" type="Panel" parent="HUD"]
 margin_left = 16.0
 margin_top = 16.0
 margin_right = 320.0
 margin_bottom = 96.0
+custom_styles/panel = SubResource( 8 )
+
+[node name="Timer bg" type="Panel" parent="HUD"]
+margin_left = 485.0
+margin_top = 24.0
+margin_right = 585.0
+margin_bottom = 74.0
 custom_styles/panel = SubResource( 8 )
 
 [node name="TextureRect" type="TextureRect" parent="HUD"]
@@ -541,6 +548,19 @@ custom_colors/font_outline_modulate = Color( 0.647059, 0.560784, 0, 1 )
 custom_constants/line_spacing = 0
 custom_fonts/font = SubResource( 9 )
 text = "x"
+align = 1
+valign = 1
+
+[node name="Time" type="Label" parent="HUD"]
+margin_left = 500.0
+margin_top = 20.0
+margin_right = 570.0
+margin_bottom = 79.0
+custom_colors/font_color = Color( 0.952941, 0.768627, 0.0392157, 1 )
+custom_colors/font_outline_modulate = Color( 0.647059, 0.560784, 0, 1 )
+custom_constants/line_spacing = 0
+custom_fonts/font = SubResource( 9 )
+text = "00:00"
 align = 1
 valign = 1
 
@@ -633,9 +653,9 @@ margin_bottom = -2273.0
 [node name="PauseTitle" type="Label" parent="HUD/PauseMenu"]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -112.0
+margin_left = -412.0
 margin_top = -53.0
-margin_right = 709.005
+margin_right = 409.005
 margin_bottom = 62.0006
 custom_colors/font_color = Color( 0.309804, 0.105882, 0.752941, 1 )
 custom_colors/font_outline_modulate = Color( 0.866667, 0.568627, 0.988235, 1 )
@@ -647,6 +667,9 @@ align = 1
 anims/Pause_sway = SubResource( 18 )
 anims/RESET = SubResource( 19 )
 anims/Title_sway = SubResource( 20 )
+
+[node name="Level_Sec" type="Timer" parent="HUD"]
+autostart = true
 
 [node name="Ladder_Tops" type="Node2D" parent="."]
 position = Vector2( 64, 0 )
@@ -794,3 +817,4 @@ position = Vector2( 3424, -1528 )
 [connection signal="pressed" from="HUD/PauseMenu/Resume_button" to="HUD" method="_on_Resume_button_pressed"]
 [connection signal="pressed" from="HUD/PauseMenu/SettingsButton" to="HUD" method="_on_SettingsButton_pressed"]
 [connection signal="pressed" from="HUD/PauseMenu/Quit_to_menu" to="HUD" method="_on_Quit_to_menu_pressed"]
+[connection signal="timeout" from="HUD/Level_Sec" to="HUD" method="_on_Level_Sec_timeout"]

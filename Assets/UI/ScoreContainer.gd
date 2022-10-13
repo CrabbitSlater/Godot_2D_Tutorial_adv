@@ -11,5 +11,5 @@ func set_values(coins:int=0, enemies:int=0, time:int=3600.0, player:String="Play
 	$PlayerName.text=player
 	var mins = floor(time/60)
 	var seconds = round(time%60)
-	$TimeLabel.text =(str(mins) + ":" +str(seconds))
+	$TimeLabel.text ="%02d:%02d" % [mins, seconds]
 	self.visible=true
