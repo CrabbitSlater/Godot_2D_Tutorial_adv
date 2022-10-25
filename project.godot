@@ -28,6 +28,7 @@ config/icon="res://icon.png"
 
 Global="*res://Global.gd"
 GlobalSettings="*res://GlobalSettings.gd"
+HighScoreManager="*res://HighScoreManager.gd"
 
 [display]
 
