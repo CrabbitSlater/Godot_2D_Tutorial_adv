@@ -1,11 +1,55 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=6 format=2]
 
+[ext_resource path="res://Assets/UI/Fonts/KiriFont.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Assets/Screens/HighScoreScreen.gd" type="Script" id=2]
+
+[sub_resource type="DynamicFont" id=1]
+size = 40
+outline_size = 3
+outline_color = Color( 0.721569, 0.654902, 0.913725, 1 )
+font_data = ExtResource( 1 )
+
+[sub_resource type="Animation" id=2]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 335, 10 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "scorejiggle"
+length = 2.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 335, 10 ), Vector2( 355, 10 ) ]
+}
 
 [node name="HighScore" type="Control"]
 margin_right = 40.0
 margin_bottom = 40.0
 script = ExtResource( 2 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_right = 1024.0
+margin_bottom = 600.0
+color = Color( 0.290196, 0.25098, 0.341176, 1 )
 
 [node name="LineEdit" type="LineEdit" parent="."]
 visible = false
@@ -18,5 +62,34 @@ expand_to_text_length = true
 
 [node name="HighScoreDisplayList" type="Control" parent="."]
 margin_left = 250.0
+margin_top = 50.0
 margin_right = 290.0
-margin_bottom = 40.0
+margin_bottom = 90.0
+
+[node name="Quit_to_menu" type="Button" parent="."]
+margin_left = 324.0
+margin_top = 540.0
+margin_right = 711.0
+margin_bottom = 602.0
+custom_colors/font_color = Color( 0.52549, 0.403922, 0.960784, 1 )
+custom_colors/font_color_hover = Color( 0.352941, 0.027451, 0.372549, 1 )
+custom_colors/font_color_pressed = Color( 0.117647, 0.0117647, 0.278431, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "Quit To MEnu"
+flat = true
+
+[node name="Title_hiscore" type="Label" parent="."]
+margin_left = 335.0
+margin_top = 10.0
+margin_right = 722.002
+margin_bottom = 72.0
+custom_colors/font_color = Color( 0.52549, 0.403922, 0.960784, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "Scoreboard"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Title_hiscore"]
+autoplay = "scorejiggle"
+anims/RESET = SubResource( 2 )
+anims/scorejiggle = SubResource( 3 )
+
+[connection signal="pressed" from="Quit_to_menu" to="." method="_on_Quit_to_menu_pressed"]

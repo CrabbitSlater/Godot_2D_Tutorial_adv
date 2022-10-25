@@ -45,6 +45,8 @@ func load_hiscores():
 		add_hiscore("poo",10,1,300)
 		add_hiscore("bum",10,2,300)
 		add_hiscore("ass",10,3,300)
+		add_hiscore("longwords",10,2,300)
+		add_hiscore("hellote",10,3,65)
 		
 		save_hiscore()
 		

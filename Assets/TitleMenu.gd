@@ -18,3 +18,8 @@ func _on_SettingsCloseButton_pressed():
 
 func _on_QuitButton_pressed():
 	get_tree().quit()
+
+
+func _on_HiScoreButton_pressed():
+	#set hiscore new flag to false 
+	get_tree().change_scene("res://Assets/Screens/HighScore.tscn")

@@ -24,3 +24,7 @@ func _ready():
 		$HighScoreDisplayList.add_child(score_cont_temp)
 		score_cont_temp.visible=true
 	
+
+
+func _on_Quit_to_menu_pressed():
+	get_tree().change_scene("res://Assets/TitleMenu.tscn")
