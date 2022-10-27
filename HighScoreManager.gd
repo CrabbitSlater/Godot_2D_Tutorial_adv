@@ -1,9 +1,13 @@
 extends Node
 
-pass
+
 
 const MAX_HISCORES = 10
 const HISCORE_SAVE_FILE = "user://2dtutorial_hiscore.save"
+const TIMEBONUS_THRESHOLD = 180
+const ENEMY_WEIGHT = 100
+const COIN_WEIGHT = 1000
+
 #check save_file location and that file exists- print to terminal 
 
 var saved_hiscore = []
@@ -11,34 +15,37 @@ var saved_hiscore = []
 var current_score = ["DEBUG",1,2,998]
 
 #flag to indicate a new highscore has been achived
-var new_hiscore:bool =false
+#var new_hiscore:bool =false
+
+
+func calc_hidden_score(coins:int, enemies:int, time:int):
+	
+	var hidden_bonus = 0
+	
+	if time < TIMEBONUS_THRESHOLD:
+		
+		hidden_bonus+=(time-TIMEBONUS_THRESHOLD)
+	
+	hidden_bonus+= COIN_WEIGHT*coins
+	hidden_bonus+= ENEMY_WEIGHT*enemies
+	
+	return hidden_bonus
+
 
 func is_current_score_hiscore():
 	
-	var lowest_coins:int = 999
-	var low_coins_enemy:int = 999
-	var low_coins_time:int = 999
-	var lowest_enemies:int = 999
-	var low_enemy_coin:int = 999
-	var low_enemy_time:int =999
-	var slowest_run:int = 9999
+	#sort instead using hidden score
 	
+	var lowest_hidden_score:int = 999
+
 	for score in saved_hiscore:
-		if score[1] < lowest_coins:
-			lowest_coins = score[1]
-			low_coins_enemy = score[2]
-			low_coins_time = score[3]
-		if score[2] <lowest_enemies:
-			lowest_enemies = score[2]
-			low_enemy_coin = score[1]
-			low_enemy_time = score[3]
-		if score[3] < slowest_run:
-			slowest_run = score[3]
-			
-	print("least coins is : "+str(lowest_coins))
-	print("least enemies is : "+str(lowest_enemies))
-	print("slowest time is : "+str(slowest_run))
+		if score[4] < lowest_hidden_score:
+			lowest_hidden_score = score[4]
 	
+	print("lowest score is : "+str(lowest_hidden_score))
+	
+
+
 	#criterion for highscore- 
 	#did you collect more coins than any of the existing hiscore entries? 
 	#	elseif you collected the same as the lowest entry- did you kill more enemies? 
@@ -48,7 +55,7 @@ func is_current_score_hiscore():
 	#		elseif you killed the same enemies as the smallest number and the same coins, did you do it faster?
 	
 	#sort priority- coins>enemies>time
-	
+	#coin waiting- one second beneath 3 mins = 1 pt, enemy is 100 pts, coin is 1000 pts 
 	return true
 
 func _ready():
@@ -60,13 +67,40 @@ func _ready():
 func add_hiscore(name:String, coins:int, enemies:int, time:int):
 	
 	#condition the name here- i.e. limit letters and allcaps 
+	var hidden_score_entry = calc_hidden_score(coins,enemies,time)
 	
-	var scorelist = [name,coins,enemies,time]
+	var scorelist = [name,coins,enemies,time,hidden_score_entry]
+	
 	saved_hiscore.append(scorelist)
 	
 	#sort highscores based on criteria in _is_currentscore_hiscore
-	#trim list to MAX_HISCORE entries
 	
+	var sorted_scores =[]
+	
+	while len(sorted_scores) < len(saved_hiscore):
+		
+		var biggest_score =0
+		var index_biggest:int = 0
+		var index_temp:int = 0
+		for score in saved_hiscore:
+			if score[4] > biggest_score:
+				biggest_score = score[4]
+				index_biggest=index_temp
+			index_temp+=1
+			
+		sorted_scores.append(saved_hiscore[index_biggest])
+		#print("Biggest score is "+str(saved_hiscore[index_biggest])+" found at index: "+str(index_biggest))
+		saved_hiscore[index_biggest][4] =0
+		#print(str(saved_hiscore[index_biggest]))
+	
+	for score in saved_hiscore:
+		score[4]=calc_hidden_score(score[1],score[2],score[3])
+	
+	saved_hiscore = sorted_scores
+	
+	#print('SORTING DONE\n\n'+ str(saved_hiscore)+" \n-----------\n\n")
+	#trim list to MAX_HISCORE entries
+
 	save_hiscore()
 
 
@@ -78,9 +112,10 @@ func get_hiscores():
 
 
 func save_hiscore():
-	
+	"""
 	print("trying to save hiscore")
 	print(saved_hiscore)
+	"""
 	var file = File.new()
 	file.open(HISCORE_SAVE_FILE,File.WRITE)
 	file.store_var(saved_hiscore)
@@ -90,12 +125,12 @@ func load_hiscores():
 	var file = File.new()
 	if not file.file_exists(HISCORE_SAVE_FILE):
 		print("creating default file ")
-		add_hiscore("poo",10,1,300)
-		add_hiscore("bum",10,2,300)
-		add_hiscore("ass",10,3,300)
-		add_hiscore("longwords",10,2,300)
-		add_hiscore("hellote",10,3,65)
-		add_hiscore("winky",69,420,65)
+		add_hiscore("a",10,5,300)
+		add_hiscore("b",10,2,300)
+		add_hiscore("c",10,3,300)
+		add_hiscore("d",80,2,300)
+		add_hiscore("e",99,3,65)
+		add_hiscore("f",100,420,65)
 		
 	file.open(HISCORE_SAVE_FILE,File.READ)
 	saved_hiscore = file.get_var()
