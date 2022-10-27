@@ -72,3 +72,9 @@ func _on_Level_Sec_timeout():
 	var seconds = round(time_secs%60)
 	$Time.text ="%02d:%02d" % [mins, seconds]
 	
+
+
+func _on_WinZone_won_game():
+	HighScoreManager.current_score[1] = coins
+	HighScoreManager.current_score[2] = enemies
+	HighScoreManager.current_score[3] = time_secs

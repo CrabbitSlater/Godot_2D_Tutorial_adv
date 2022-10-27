@@ -1,8 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://GotoTitleButton.gd" type="Script" id=1]
 [ext_resource path="res://Assets/UI/Fonts/BalsamiqSans-Bold.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://Assets/UI/Fonts/KiriFont.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://Assets/UI/ScoreContainer.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Assets/GameWinScreen.gd" type="Script" id=5]
 
 [sub_resource type="DynamicFont" id=1]
 size = 35
@@ -20,6 +22,7 @@ font_data = ExtResource( 3 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 rect_pivot_offset = Vector2( -672, 256 )
+script = ExtResource( 5 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
 margin_right = 1056.0
@@ -42,14 +45,21 @@ script = ExtResource( 1 )
 [node name="WinScreenText" type="Label" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 368.0
-margin_top = 192.0
-margin_right = -312.0
-margin_bottom = -344.0
+margin_left = 378.0
+margin_top = 201.888
+margin_right = -302.0
+margin_bottom = -334.112
 custom_colors/font_color = Color( 0.0823529, 0.866667, 0.0784314, 1 )
 custom_fonts/font = SubResource( 2 )
 text = "You Win!"
 align = 1
 valign = 1
+
+[node name="WinScore" parent="." instance=ExtResource( 4 )]
+visible = false
+margin_left = 220.0
+margin_top = 496.0
+margin_right = 220.0
+margin_bottom = 496.0
 
 [connection signal="pressed" from="GotoTitleButton" to="GotoTitleButton" method="_on_GotoTitleButton_pressed"]

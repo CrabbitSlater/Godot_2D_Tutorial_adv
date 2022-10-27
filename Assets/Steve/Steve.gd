@@ -283,3 +283,5 @@ func _on_LadderChecker_body_entered(body):
 func _on_LadderChecker_body_exited(body):
 	on_ladder = false
 	pass # Replace with function body.
+
+

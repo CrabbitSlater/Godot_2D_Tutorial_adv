@@ -8,6 +8,17 @@ const HISCORE_SAVE_FILE = "user://2dtutorial_hiscore.save"
 
 var saved_hiscore = []
 
+var current_score = ["DEBUG",1,2,998]
+
+#flag to indicate a new highscore has been achived
+var new_hiscore:bool =false
+
+func is_current_score_hiscore():
+	return true
+	
+func add_new_hiscore():
+	pass
+
 func _ready():
 	load_hiscores()
 	
