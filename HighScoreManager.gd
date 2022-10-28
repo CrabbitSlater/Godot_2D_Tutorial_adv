@@ -12,7 +12,7 @@ const COIN_WEIGHT = 1000
 
 var saved_hiscore = []
 
-var current_score = ["DEBUG",1,2,998]
+var current_score = ["ERR",0,0,999]
 
 #flag to indicate a new highscore has been achived
 #var new_hiscore:bool =false
@@ -32,7 +32,7 @@ func calc_hidden_score(coins:int, enemies:int, time:int):
 	return hidden_bonus
 
 
-func is_current_score_hiscore():
+func is_current_score_hiscore() -> bool:
 	
 	#sort instead using hidden score
 	
@@ -43,7 +43,17 @@ func is_current_score_hiscore():
 			lowest_hidden_score = score[4]
 	
 	print("lowest score is : "+str(lowest_hidden_score))
+	var current_hidden_score = calc_hidden_score(current_score[1],current_score[2],current_score[3])
+	print("current hidden score is : "+str(current_hidden_score))
 	
+	if current_hidden_score > lowest_hidden_score:
+		return true
+	
+	return false
+	
+func add_current_score_as_highscore():
+	add_hiscore(current_score[0],current_score[1],current_score[2],current_score[3])
+	current_score = ["ERR",0,0,999]
 
 
 	#criterion for highscore- 
@@ -56,7 +66,7 @@ func is_current_score_hiscore():
 	
 	#sort priority- coins>enemies>time
 	#coin waiting- one second beneath 3 mins = 1 pt, enemy is 100 pts, coin is 1000 pts 
-	return true
+	
 
 func _ready():
 	load_hiscores()
