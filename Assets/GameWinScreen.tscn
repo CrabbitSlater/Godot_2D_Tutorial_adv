@@ -99,8 +99,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 378.0
 margin_top = 201.888
-margin_right = -302.0
-margin_bottom = -296.112
+margin_right = 1746.0
+margin_bottom = 903.888
 custom_colors/font_color = Color( 0.0823529, 0.866667, 0.0784314, 1 )
 custom_fonts/font = SubResource( 2 )
 text = "You Win!"
@@ -114,19 +114,19 @@ anims/win_bounce = SubResource( 4 )
 
 [node name="HighscorePanel" type="Panel" parent="."]
 visible = false
-margin_left = 276.0
-margin_top = 300.0
-margin_right = 826.0
-margin_bottom = 512.0
+margin_left = 400.0
+margin_top = 304.0
+margin_right = 666.0
+margin_bottom = 516.0
 custom_styles/panel = SubResource( 5 )
 
 [node name="LineEdit" type="LineEdit" parent="HighscorePanel"]
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 230.0
+margin_left = 96.0
 margin_top = -130.0
-margin_right = -230.0
+margin_right = -88.0
 margin_bottom = -90.0
 max_length = 3
 
@@ -134,16 +134,30 @@ max_length = 3
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 230.0
-margin_top = -67.0
-margin_right = -232.0
-margin_bottom = -20.0
+margin_left = 96.0
+margin_top = -64.0
+margin_right = -82.0
+margin_bottom = -17.0
 custom_colors/font_color = Color( 0.52549, 0.403922, 0.960784, 1 )
 custom_colors/font_color_hover = Color( 0.352941, 0.027451, 0.372549, 1 )
 custom_colors/font_color_pressed = Color( 0.117647, 0.0117647, 0.278431, 1 )
 custom_fonts/font = SubResource( 6 )
 text = "OK"
 flat = true
+
+[node name="Title" type="Label" parent="HighscorePanel"]
+margin_left = 64.0
+margin_top = 4.0
+margin_right = 193.0
+margin_bottom = 34.0
+text = "High Score!"
+
+[node name="text" type="Label" parent="HighscorePanel"]
+margin_left = 64.0
+margin_top = 36.0
+margin_right = 203.0
+margin_bottom = 66.0
+text = "Enter Name:"
 
 [connection signal="pressed" from="GotoTitleButton" to="GotoTitleButton" method="_on_GotoTitleButton_pressed"]
 [connection signal="pressed" from="HighscorePanel/Accept" to="." method="_on_Accept_pressed"]

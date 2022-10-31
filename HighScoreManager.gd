@@ -2,7 +2,7 @@ extends Node
 
 
 
-const MAX_HISCORES = 10
+const MAX_HISCORES = 9
 const HISCORE_SAVE_FILE = "user://2dtutorial_hiscore.save"
 const TIMEBONUS_THRESHOLD = 180
 const ENEMY_WEIGHT = 100
@@ -108,6 +108,9 @@ func add_hiscore(name:String, coins:int, enemies:int, time:int):
 	
 	saved_hiscore = sorted_scores
 	
+	while saved_hiscore.size() > MAX_HISCORES:
+		saved_hiscore.remove(saved_hiscore.size()-1)
+	
 	#print('SORTING DONE\n\n'+ str(saved_hiscore)+" \n-----------\n\n")
 	#trim list to MAX_HISCORE entries
 
@@ -135,13 +138,11 @@ func load_hiscores():
 	var file = File.new()
 	if not file.file_exists(HISCORE_SAVE_FILE):
 		print("creating default file ")
-		add_hiscore("a",10,5,300)
-		add_hiscore("b",10,2,300)
-		add_hiscore("c",10,3,300)
-		add_hiscore("d",80,2,300)
-		add_hiscore("e",99,3,65)
-		add_hiscore("f",100,420,65)
 		
+		for x in range(9):
+			add_hiscore("___",0,0,999)
+			print("length of scoretable is "+str(saved_hiscore.size()))
+			
 	file.open(HISCORE_SAVE_FILE,File.READ)
 	saved_hiscore = file.get_var()
 	file.close()
