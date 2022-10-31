@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://WinZone.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Audio/sounds/confirmation_002.ogg" type="AudioStream" id=2]
+[ext_resource path="res://Assets/particle.png" type="Texture" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 640, 320 )
@@ -14,13 +15,35 @@ script = ExtResource( 1 )
 shape = SubResource( 1 )
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 2.0
+wait_time = 3.0
 one_shot = true
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 2 )
 volume_db = -10.667
 bus = "SFX"
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2( -192, 320 )
+texture = ExtResource( 3 )
+direction = Vector2( 0, -1 )
+initial_velocity = 200.0
+initial_velocity_random = 0.5
+angular_velocity = 311.35
+angular_velocity_random = 1.0
+hue_variation = 1.0
+hue_variation_random = 1.0
+
+[node name="CPUParticles2D2" type="CPUParticles2D" parent="."]
+position = Vector2( 192, 320 )
+texture = ExtResource( 3 )
+direction = Vector2( 0, -1 )
+initial_velocity = 200.0
+initial_velocity_random = 0.5
+angular_velocity = 311.35
+angular_velocity_random = 1.0
+hue_variation = 1.0
+hue_variation_random = 1.0
 
 [connection signal="body_entered" from="." to="." method="_on_WinZone_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

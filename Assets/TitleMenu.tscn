@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Assets/UI/UI_Img/grey_button04.png" type="Texture" id=1]
 [ext_resource path="res://Assets/UI/Fonts/KiriFont.ttf" type="DynamicFontData" id=2]
@@ -14,6 +14,8 @@
 [sub_resource type="DynamicFont" id=5]
 size = 32
 font_data = ExtResource( 8 )
+
+[sub_resource type="Theme" id=8]
 
 [sub_resource type="DynamicFont" id=1]
 size = 55
@@ -98,9 +100,11 @@ align = 1
 valign = 1
 
 [node name="TextureRect" type="TextureRect" parent="Label7"]
-margin_top = 64.0
+margin_left = -32.0
+margin_top = 39.0
 margin_right = 256.0
 margin_bottom = 232.0
+theme = SubResource( 8 )
 texture = ExtResource( 10 )
 expand = true
 stretch_mode = 5
@@ -126,10 +130,10 @@ anims/Title_sway = SubResource( 7 )
 [node name="PanelControls" type="Panel" parent="."]
 anchor_top = 0.987
 anchor_bottom = 0.987
-margin_left = 64.0
-margin_top = -265.2
+margin_left = 48.0
+margin_top = -322.2
 margin_right = 304.0
-margin_bottom = -41.2
+margin_bottom = -0.200012
 custom_styles/panel = SubResource( 2 )
 
 [node name="Label3" type="Label" parent="PanelControls"]
@@ -169,6 +173,74 @@ margin_right = 104.0
 margin_bottom = 208.0
 custom_fonts/font = SubResource( 5 )
 text = "Fireball!"
+align = 1
+valign = 1
+
+[node name="Label7" type="Label" parent="PanelControls"]
+margin_left = 41.0
+margin_top = 222.0
+margin_right = 202.0
+margin_bottom = 261.0
+custom_fonts/font = SubResource( 5 )
+text = "Wall Jump!"
+align = 1
+valign = 1
+
+[node name="LeftKey2" type="TextureRect" parent="PanelControls/Label7"]
+margin_left = -32.0
+margin_top = 41.0
+margin_bottom = 73.0
+texture = ExtResource( 1 )
+expand = true
+
+[node name="TextureRect2" type="TextureRect" parent="PanelControls/Label7/LeftKey2"]
+margin_left = 8.0
+margin_top = 24.0
+margin_right = 24.0
+margin_bottom = 40.0
+rect_rotation = -90.0
+texture = ExtResource( 4 )
+expand = true
+
+[node name="Label7" type="Label" parent="PanelControls/Label7/LeftKey2"]
+margin_left = 24.0
+margin_top = -5.0
+margin_right = 168.0
+margin_bottom = 34.0
+custom_fonts/font = SubResource( 5 )
+text = "+"
+align = 1
+valign = 1
+
+[node name="RightKey2" type="TextureRect" parent="PanelControls/Label7/LeftKey2"]
+margin_left = 48.0
+margin_right = 80.0
+margin_bottom = 32.0
+texture = ExtResource( 1 )
+expand = true
+
+[node name="TextureRect" type="TextureRect" parent="PanelControls/Label7/LeftKey2/RightKey2"]
+margin_left = 24.0
+margin_top = 8.0
+margin_right = 40.0
+margin_bottom = 24.0
+rect_rotation = 90.0
+texture = ExtResource( 4 )
+expand = true
+
+[node name="Spacebar2" type="TextureRect" parent="PanelControls/Label7/LeftKey2"]
+margin_left = 112.0
+margin_right = 224.0
+margin_bottom = 32.0
+texture = ExtResource( 1 )
+expand = true
+
+[node name="Label2" type="Label" parent="PanelControls/Label7/LeftKey2/Spacebar2"]
+margin_right = 112.0
+margin_bottom = 32.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 4 )
+text = "SPACE"
 align = 1
 valign = 1
 

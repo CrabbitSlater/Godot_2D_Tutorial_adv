@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://GotoTitleButton.gd" type="Script" id=1]
 [ext_resource path="res://Assets/UI/Fonts/BalsamiqSans-Bold.ttf" type="DynamicFontData" id=2]
@@ -14,6 +14,38 @@ font_data = ExtResource( 2 )
 size = 80
 outline_size = 4
 font_data = ExtResource( 3 )
+
+[sub_resource type="Animation" id=3]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ -20.0 ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "over_rock"
+length = 2.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ -10.0, 10.0 ]
+}
 
 [node name="GameOverScreen" type="Control"]
 anchor_right = 1.0
@@ -48,11 +80,18 @@ margin_left = -288.0
 margin_top = -79.8
 margin_right = 310.0
 margin_bottom = 80.2
+rect_rotation = -20.0
+rect_pivot_offset = Vector2( 299, 80 )
 custom_colors/font_color = Color( 0.529412, 0.0235294, 0.0235294, 1 )
 custom_colors/font_outline_modulate = Color( 0.823529, 0.466667, 0.466667, 1 )
 custom_fonts/font = SubResource( 2 )
 text = "Game over!"
 align = 1
 valign = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="GameEverText"]
+autoplay = "over_rock"
+anims/RESET = SubResource( 3 )
+anims/over_rock = SubResource( 4 )
 
 [connection signal="pressed" from="GotoTitleButton" to="GotoTitleButton" method="_on_GotoTitleButton_pressed"]
